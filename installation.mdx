@@ -1,0 +1,281 @@
+---
+title: Installation and Setup
+description: Step-by-step guide to installing Python and setting up the Python Vanilla learning environment
+---
+
+# Installation and Setup
+
+This guide will walk you through installing Python and setting up the Python Vanilla repository on your local machine so you can start learning immediately.
+
+## Prerequisites
+
+Before installing Python Vanilla, you'll need to have Python installed on your system. Let's verify your installation or install it if needed.
+
+### Check Existing Python Installation
+
+First, check if Python is already installed on your system by running this command in your terminal:
+
+```bash
+python --version
+```
+
+Or on some systems:
+
+```bash
+python3 --version
+```
+
+<Note>
+You should see output like `Python 3.11.0` or similar. Python 3.6 or higher is recommended for this course.
+</Note>
+
+## Installing Python
+
+If Python is not installed or you need to update to a newer version, follow these steps:
+
+<Steps>
+  <Step title="Download Python">
+    Visit the official Python website at [python.org](https://www.python.org/) and download the latest stable version for your operating system.
+    
+    <CardGroup cols={3}>
+      <Card title="Windows" icon="windows">
+        Download the Windows installer (.exe) and run it. Make sure to check "Add Python to PATH" during installation.
+      </Card>
+      <Card title="macOS" icon="apple">
+        Download the macOS installer (.pkg) or use Homebrew: `brew install python3`
+      </Card>
+      <Card title="Linux" icon="linux">
+        Use your package manager: `sudo apt install python3` (Ubuntu/Debian) or `sudo yum install python3` (CentOS/RHEL)
+      </Card>
+    </CardGroup>
+  </Step>
+  
+  <Step title="Verify Installation">
+    After installation, open a new terminal window and verify Python is installed correctly:
+    
+    ```bash
+    python --version
+    ```
+    
+    You should see the version number of your Python installation.
+  </Step>
+  
+  <Step title="Verify pip">
+    Pip is Python's package installer and comes bundled with Python. Verify it's installed:
+    
+    ```bash
+    pip --version
+    ```
+    
+    Or:
+    
+    ```bash
+    pip3 --version
+    ```
+  </Step>
+</Steps>
+
+## Setting Up Python Vanilla
+
+Now that Python is installed, let's set up the Python Vanilla repository to access all the learning materials and examples.
+
+<Steps>
+  <Step title="Clone the Repository">
+    You can clone the repository using either HTTPS or SSH. SSH is recommended if you have SSH keys set up with GitHub.
+    
+    <CodeGroup>
+    ```bash SSH (Recommended)
+    git clone git@github.com:jcomte23/Python_vanilla.git
+    ```
+    
+    ```bash HTTPS
+    git clone https://github.com/jcomte23/Python_vanilla.git
+    ```
+    </CodeGroup>
+    
+    <Note>
+    If you're new to Git, HTTPS is simpler to get started. For SSH setup, refer to [GitHub's SSH documentation](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
+    </Note>
+  </Step>
+  
+  <Step title="Navigate to the Directory">
+    Once cloned, navigate into the Python Vanilla directory:
+    
+    ```bash
+    cd Python_vanilla
+    ```
+  </Step>
+  
+  <Step title="Explore the Structure">
+    The repository is organized into numbered chapters. List the contents to see what's available:
+    
+    ```bash
+    ls
+    ```
+    
+    You should see folders like:
+    - `01_Introduccion_a_python` - Introduction to Python
+    - `02_Tipos_de_variables_en_python` - Variable types
+    - `03_Strings` - Working with strings
+    - `04_Numbers` - Numbers and numeric operations
+    - And more...
+  </Step>
+  
+  <Step title="Run Your First Example">
+    Navigate to the first chapter and run the example:
+    
+    ```bash
+    cd 01_Introduccion_a_python
+    python main.py
+    ```
+    
+    You should see output in your terminal demonstrating Python concepts from the first chapter.
+  </Step>
+</Steps>
+
+## Repository Structure
+
+Understanding the repository structure will help you navigate the learning materials effectively:
+
+### Chapter Organization
+
+The repository is structured as a step-by-step learning guide:
+
+<CardGroup cols={2}>
+  <Card title="Chapters 01-07" icon="1">
+    **Basic Concepts**
+    
+    - Variables and data types
+    - Strings and string manipulation
+    - Numbers and numeric operations
+    - Operators
+    - Conditionals and control flow
+  </Card>
+  
+  <Card title="Chapters 09-12" icon="2">
+    **Data Structures & Loops**
+    
+    - Lists and list operations
+    - Tuples
+    - Dictionaries
+    - Sets
+    - Loops and iteration
+  </Card>
+</CardGroup>
+
+### Practical Exercises
+
+The `EjerciciosPracticos` folder contains applied exercises that integrate concepts from multiple chapters:
+
+- **BMI Calculator**: Calculate and interpret Body Mass Index
+- **Shopping Cart**: Manage items and calculate totals
+- **Text Analyzer**: Process and analyze text input
+- And more!
+
+## Running Examples
+
+Each chapter contains a `main.py` file with executable examples. To run any chapter:
+
+<Steps>
+  <Step title="Navigate to the Chapter">
+    Use `cd` to move into the chapter directory:
+    
+    ```bash
+    cd "02_Tipos_de_variables_en_python"
+    ```
+    
+    <Note>
+    Use quotes around folder names with spaces to ensure the command works correctly.
+    </Note>
+  </Step>
+  
+  <Step title="Execute the Script">
+    Run the main Python file:
+    
+    ```bash
+    python main.py
+    ```
+    
+    The results will be displayed in your terminal.
+  </Step>
+  
+  <Step title="Experiment and Learn">
+    Open `main.py` in your favorite text editor, read through the code, and modify it to experiment with the concepts. Run the file again to see how your changes affect the output.
+  </Step>
+</Steps>
+
+## Recommended Tools
+
+While you can use any text editor to work with Python, these tools can enhance your learning experience:
+
+### Text Editors and IDEs
+
+- **VS Code**: Free, powerful editor with excellent Python support
+- **PyCharm**: Full-featured IDE designed specifically for Python
+- **Sublime Text**: Lightweight and fast text editor
+- **Jupyter Notebook**: Interactive environment great for learning and experimentation
+
+### Terminal Enhancement
+
+- **iTerm2** (macOS): Enhanced terminal with better features
+- **Windows Terminal** (Windows): Modern terminal application
+- **Terminator** (Linux): Terminal emulator with split screens
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="'python' command not found">
+    Try using `python3` instead of `python`. On some systems, especially Linux and macOS, Python 3 is accessed via `python3`.
+    
+    If that doesn't work, Python may not be in your PATH. Reinstall Python and ensure you check the "Add to PATH" option during installation.
+  </Accordion>
+  
+  <Accordion title="Permission denied when running scripts">
+    On Linux or macOS, you may need to make the script executable:
+    
+    ```bash
+    chmod +x main.py
+    ```
+    
+    Or run with explicit python command:
+    
+    ```bash
+    python3 main.py
+    ```
+  </Accordion>
+  
+  <Accordion title="Git clone fails">
+    If you get authentication errors with SSH, switch to HTTPS method:
+    
+    ```bash
+    git clone https://github.com/jcomte23/Python_vanilla.git
+    ```
+    
+    If Git is not installed, install it from [git-scm.com](https://git-scm.com/).
+  </Accordion>
+  
+  <Accordion title="Wrong Python version">
+    If you have multiple Python versions installed, you can specify which one to use:
+    
+    ```bash
+    python3.11 main.py
+    ```
+    
+    Replace `3.11` with your desired version number.
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+Congratulations! You now have Python and the Python Vanilla repository set up and ready to go. 
+
+You're ready to start your learning journey:
+
+1. Begin with **Chapter 01** - Introduction to Python
+2. Work through each chapter sequentially
+3. Experiment with the code examples
+4. Complete the practical exercises to reinforce your learning
+
+<Note>
+Remember: Learning to code is a journey. Take your time with each concept, experiment freely, and don't be afraid to make mistakes—that's how you learn!
+</Note>

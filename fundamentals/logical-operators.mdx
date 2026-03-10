@@ -1,0 +1,377 @@
+---
+title: Logical Operators in Python
+description: Master AND, OR, and NOT logical operators to combine conditions in Python
+---
+
+## Introduction to Logical Operators
+
+Logical operators allow you to combine multiple conditions in conditional statements. Python provides three logical operators: `and`, `or`, and `not`. These operators are fundamental for creating complex conditional logic.
+
+## The Three Logical Operators
+
+```python
+# Relational operators
+# >, <, >=, <=, ==, !=
+
+# Mathematical operators  
+# +, -, *, /, //, **, %
+
+# Logical operators
+# and, or, not
+```
+
+<Info>
+Logical operators are primarily used in conditional structures to group multiple simple conditions together.
+</Info>
+
+## The AND Operator
+
+The `and` operator returns `True` only if **both** conditions are `True`.
+
+### Truth Table for AND
+
+| Condition 1 | Condition 2 | Result |
+|-------------|-------------|--------|
+| True | True | True |
+| True | False | False |
+| False | True | False |
+| False | False | False |
+
+### Basic AND Example
+
+```python
+condicion1 = True
+condicion2 = False
+
+if condicion1 == True and condicion2 == True:
+    print("PRIMER BANDERA")  # Won't execute
+```
+
+### Practical AND Example: Login Validation
+
+```python
+usuario = input("Usuario =>")
+contraseña = input("Contraseña =>")
+
+if usuario == "admin" and contraseña == "12345":
+    print("login exitoso")
+else:
+    print("login erroneo")
+```
+
+<Note>
+With `and`, **all conditions must be True** for the entire expression to be True. If any condition is False, the whole expression is False.
+</Note>
+
+### Type Checking with AND
+
+```python
+estatura = 4.0
+
+# Both conditions must be True
+print(estatura >= 1.71 and type(estatura) == float)  # True
+
+# One condition is False, so result is False
+print(estatura >= 1.71 and isinstance(estatura, int))  # False
+```
+
+## The OR Operator
+
+The `or` operator returns `True` if **at least one** condition is `True`.
+
+### Truth Table for OR
+
+| Condition 1 | Condition 2 | Result |
+|-------------|-------------|--------|
+| True | True | True |
+| True | False | True |
+| False | True | True |
+| False | False | False |
+
+### Basic OR Example
+
+```python
+condicion1 = True
+condicion2 = False
+
+if condicion1 == True or condicion2 == True:
+    print("SEGUNDA BANDERA")  # Will execute
+```
+
+### Practical OR Example: Quarter Validation
+
+```python
+print("validar si un mes esta en el primer trimestre del año")
+mes = input("Mes =>")
+
+if mes == "enero" or mes == "febrero" or mes == "marzo":
+    print("Corresponde al primer trimestre")
+```
+
+<Tip>
+With `or`, only **one condition needs to be True** for the entire expression to be True. All conditions must be False for the expression to be False.
+</Tip>
+
+### Type Checking with OR
+
+```python
+estatura = 4.0
+
+# At least one condition is True, so result is True
+print(estatura >= 1.71 or isinstance(estatura, float))  # True
+```
+
+## The NOT Operator
+
+The `not` operator **reverses** the boolean value of a condition.
+
+### Truth Table for NOT
+
+| Condition | Result |
+|-----------|--------|
+| True | False |
+| False | True |
+
+### Basic NOT Example
+
+```python
+condicion1 = True
+
+if not condicion1 == False:
+    print("TERCERA BANDERA")  # Will execute
+```
+
+### Practical NOT Example
+
+```python
+variable = True
+print(variable)      # True
+print(not variable)  # False
+
+is_logged_in = False
+if not is_logged_in:
+    print("Please log in")  # Will execute
+```
+
+<Info>
+`not` simply inverts the boolean value. `not True` becomes `False`, and `not False` becomes `True`.
+</Info>
+
+## Combining Logical Operators
+
+You can combine multiple logical operators in a single expression:
+
+### Example 1: Access Control
+
+```python
+age = 25
+has_permission = True
+is_banned = False
+
+if (age >= 18 and has_permission) and not is_banned:
+    print("Access granted")
+else:
+    print("Access denied")
+```
+
+### Example 2: Complex Validation
+
+```python
+score = 85
+attempts = 2
+max_attempts = 3
+
+if score >= 80 or (score >= 60 and attempts < max_attempts):
+    print("You passed!")
+else:
+    print("Try again")
+```
+
+### Example 3: User Role Check
+
+```python
+role = "admin"
+is_active = True
+
+if (role == "admin" or role == "moderator") and is_active:
+    print("You have elevated privileges")
+```
+
+## Operator Precedence
+
+When combining operators, Python follows this precedence order:
+
+1. `not` (highest priority)
+2. `and`
+3. `or` (lowest priority)
+
+```python
+# Without parentheses
+result = True or False and False
+print(result)  # True (because 'and' is evaluated first)
+
+# With parentheses for clarity
+result = True or (False and False)
+print(result)  # True
+
+result = (True or False) and False
+print(result)  # False
+```
+
+<Tip>
+Use parentheses to make your intent clear, even when not strictly necessary. It improves code readability.
+</Tip>
+
+## Practical Examples
+
+### Example 1: Authentication System
+
+```python
+usuario = input("Usuario =>")
+contraseña = input("Contraseña =>")
+
+if usuario == "admin" and contraseña == "12345":
+    print("login exitoso")
+else:
+    print("login erroneo")
+```
+
+### Example 2: First Quarter Check
+
+```python
+print("validar si un mes esta en el primer trimestre del año")
+mes = input("Mes =>")
+
+if mes == "enero" or mes == "febrero" or mes == "marzo":
+    print("Corresponde al primer trimestre")
+else:
+    print("No corresponde al primer trimestre")
+```
+
+### Example 3: Age and Permission Validation
+
+```python
+age = 20
+has_id = True
+has_ticket = True
+
+if age >= 18 and (has_id or has_ticket):
+    print("Entry allowed")
+else:
+    print("Entry denied")
+```
+
+### Example 4: System Status Check
+
+```python
+is_online = True
+is_maintenance = False
+has_error = False
+
+if is_online and not is_maintenance and not has_error:
+    print("System operational")
+else:
+    print("System unavailable")
+```
+
+## Short-Circuit Evaluation
+
+Python uses short-circuit evaluation for logical operators:
+
+### AND Short-Circuit
+
+```python
+# If first condition is False, second is never evaluated
+if False and expensive_function():
+    print("This won't execute")
+```
+
+### OR Short-Circuit
+
+```python
+# If first condition is True, second is never evaluated  
+if True or expensive_function():
+    print("This will execute")
+```
+
+<Info>
+Short-circuit evaluation can improve performance by avoiding unnecessary evaluations.
+</Info>
+
+## Common Use Cases
+
+### Form Validation
+
+```python
+email = input("Email: ")
+password = input("Password: ")
+
+if len(email) > 0 and len(password) >= 8:
+    print("Valid input")
+else:
+    print("Invalid input")
+```
+
+### Range Checking
+
+```python
+value = 45
+
+if value >= 0 and value <= 100:
+    print("Value is in valid range")
+```
+
+### Multiple Choice Validation
+
+```python
+response = input("Do you agree? (yes/y/si): ")
+
+if response == "yes" or response == "y" or response == "si":
+    print("Agreement confirmed")
+```
+
+## Best Practices
+
+1. **Use parentheses for clarity**
+   ```python
+   # Good
+   if (age >= 18 and has_id) or is_vip:
+       grant_access()
+   
+   # Less clear
+   if age >= 18 and has_id or is_vip:
+       grant_access()
+   ```
+
+2. **Simplify complex conditions**
+   ```python
+   # Good
+   is_valid_user = age >= 18 and has_permission
+   if is_valid_user and not is_banned:
+       grant_access()
+   
+   # Less readable
+   if age >= 18 and has_permission and not is_banned:
+       grant_access()
+   ```
+
+3. **Avoid redundant comparisons**
+   ```python
+   # Good
+   if is_active:
+       do_something()
+   
+   # Redundant
+   if is_active == True:
+       do_something()
+   ```
+
+## Key Takeaways
+
+- **`and`**: Returns True only if **all** conditions are True
+- **`or`**: Returns True if **at least one** condition is True  
+- **`not`**: **Inverts** the boolean value
+- Operator precedence: `not` > `and` > `or`
+- Python uses **short-circuit evaluation** for efficiency
+- Use **parentheses** to make complex conditions more readable
+- Logical operators are essential for combining multiple conditions in `if` statements

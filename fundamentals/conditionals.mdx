@@ -1,0 +1,267 @@
+---
+title: Conditionals in Python
+description: Learn to control program flow using if, elif, and else statements in Python
+---
+
+## Introduction to Conditionals
+
+Conditional statements allow your program to make decisions and execute different code blocks based on specific conditions. Python uses `if`, `elif`, and `else` keywords to create conditional logic.
+
+## Basic Conditional (IF)
+
+The simplest form of conditional statement executes code only when a condition is `True`:
+
+```python
+if 8 > 5:
+    print("8 es mayor que 5")  # This will execute
+```
+
+<Info>
+Python uses indentation (typically 4 spaces) to define code blocks. All indented lines after the `if` statement belong to that conditional block.
+</Info>
+
+## IF-ELSE Statement
+
+The `if-else` structure provides an alternative action when the condition is `False`:
+
+```python
+helado = 'limon'
+
+if helado == 'chocolate':
+    print('Sí es un helado de chocolate')
+else:
+    print('No es un helado de chocolate')  # This will execute
+```
+
+### Structure
+
+```python
+if condition:
+    # Code executed when condition is True
+else:
+    # Code executed when condition is False
+```
+
+<Note>
+The `else` block is optional. Use it when you need to handle the case where the condition is not met.
+</Note>
+
+## IF-ELIF-ELSE Statement
+
+For multiple conditions, use `elif` (else if) to check additional conditions:
+
+```python
+puntaje = -4
+
+if puntaje == 0:
+    print("El puntaje es neutro")
+elif puntaje < 0:
+    print(f"El puntaje es negativo {puntaje}")  # This will execute
+elif puntaje > 0:
+    print(f"El puntaje es positivo {puntaje}")
+else:
+    print("El puntaje no está dentro de los parámetros")
+```
+
+### Structure
+
+```python
+if condition1:
+    # Code for condition1
+elif condition2:
+    # Code for condition2
+elif condition3:
+    # Code for condition3
+else:
+    # Code when none of the above conditions are True
+```
+
+<Tip>
+You can have as many `elif` blocks as needed. Python evaluates them in order and executes the first one that's `True`, then skips the rest.
+</Tip>
+
+## Comparison in Conditionals
+
+Conditionals work with comparison operators:
+
+### Equality Check
+
+```python
+user_input = input("Enter a color: ")
+
+if user_input == "blue":
+    print("You chose blue!")
+else:
+    print("You chose a different color")
+```
+
+### Numeric Comparisons
+
+```python
+age = 18
+
+if age >= 18:
+    print("You are an adult")
+elif age >= 13:
+    print("You are a teenager")
+else:
+    print("You are a child")
+```
+
+### Multiple Conditions
+
+```python
+score = 85
+
+if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"  # This will execute
+elif score >= 70:
+    grade = "C"
+elif score >= 60:
+    grade = "D"
+else:
+    grade = "F"
+
+print(f"Your grade is: {grade}")
+```
+
+## Practical Examples
+
+### Example 1: Temperature Checker
+
+```python
+temperature = 25
+
+if temperature > 30:
+    print("It's hot outside")
+elif temperature > 20:
+    print("The weather is pleasant")  # This will execute
+elif temperature > 10:
+    print("It's cool outside")
+else:
+    print("It's cold outside")
+```
+
+### Example 2: Grade Evaluator
+
+```python
+score = 75
+
+if score >= 90:
+    print("Excellent! Grade: A")
+elif score >= 80:
+    print("Very good! Grade: B")
+elif score >= 70:
+    print("Good! Grade: C")  # This will execute
+elif score >= 60:
+    print("Passing. Grade: D")
+else:
+    print("Failed. Grade: F")
+```
+
+### Example 3: Sign Checker
+
+```python
+number = -15
+
+if number > 0:
+    print("The number is positive")
+elif number < 0:
+    print("The number is negative")  # This will execute
+else:
+    print("The number is zero")
+```
+
+### Example 4: Ice Cream Flavor Check
+
+```python
+helado = 'limon'
+
+if helado == 'chocolate':
+    print('Sí es un helado de chocolate')
+else:
+    print('No es un helado de chocolate')  # Output: No es un helado de chocolate
+```
+
+## Nested Conditionals
+
+You can place conditional statements inside other conditional statements:
+
+```python
+age = 20
+has_license = True
+
+if age >= 18:
+    if has_license:
+        print("You can drive")
+    else:
+        print("You need a license to drive")
+else:
+    print("You are too young to drive")
+```
+
+<Note>
+While nested conditionals work, consider using logical operators (covered in the next section) to make your code more readable.
+</Note>
+
+## Conditional Statement Flow
+
+```python
+puntaje = -4
+
+if puntaje == 0:
+    print("El puntaje es neutro")
+elif puntaje < 0:
+    print(f"El puntaje es negativo {puntaje}")  # ✓ Executes this
+elif puntaje > 0:  # ✗ Skips this even though we haven't checked it
+    print(f"El puntaje es positivo {puntaje}")
+else:  # ✗ Skips this too
+    print("El puntaje no está dentro de los parámetros")
+```
+
+<Info>
+Once a condition is met, Python executes that block and skips all remaining `elif` and `else` blocks. This is called "short-circuit evaluation."
+</Info>
+
+## Best Practices
+
+1. **Order conditions from most specific to least specific**
+   ```python
+   # Good
+   if score >= 90:
+       grade = "A"
+   elif score >= 80:
+       grade = "B"
+   
+   # Bad - will never reach the second condition
+   if score >= 0:
+       grade = "Pass"
+   elif score >= 90:
+       grade = "A"  # Never executes!
+   ```
+
+2. **Use clear, descriptive conditions**
+   ```python
+   # Good
+   if is_valid_user:
+       grant_access()
+   
+   # Less clear
+   if x == True:
+       do_something()
+   ```
+
+3. **Keep conditional blocks simple**
+   - If a conditional block gets too long, consider extracting it into a function
+   - Use logical operators to combine simple conditions instead of nesting
+
+## Key Takeaways
+
+- **`if`**: Executes code when condition is `True`
+- **`elif`**: Checks additional conditions if previous ones were `False`
+- **`else`**: Executes when all previous conditions are `False`
+- Python uses **indentation** to define code blocks
+- Conditions are evaluated **in order**, and only the first `True` condition executes
+- You can have multiple `elif` blocks but only one `if` and one `else`

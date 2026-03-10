@@ -1,0 +1,239 @@
+---
+title: "Lists"
+description: "Learn how to create, access, modify, and manipulate lists in Python. Lists are versatile, ordered collections that can store mixed data types."
+---
+
+# Lists in Python
+
+In Python, a list is a very versatile data structure used to store an ordered collection of elements. Lists are mutable, meaning you can modify them after creation, and they can contain elements of different types.
+
+## Creating Lists
+
+There are several ways to create lists in Python:
+
+```python
+# Empty list
+lista_vacia = []
+
+# List with numbers
+lista_numeros = [1, 2, 3, 4, 5]
+
+# Mixed data types
+lista_mezclada = [1, "dos", 3.0, True]
+```
+
+<Note>
+Lists can contain elements of different types including numbers, strings, booleans, and even other lists.
+</Note>
+
+## Accessing Elements
+
+You can access list elements using indices. Python uses zero-based indexing:
+
+```python
+lista = ["a", "b", "c", "d", "e"]
+
+# Access first element
+primer_elemento = lista[0]     # "a"
+
+# Access last element
+ultimo_elemento = lista[-1]    # "e"
+
+# Slicing - get a sublist
+sublista = lista[1:4]   # ["b", "c", "d"]
+```
+
+<AccordionGroup>
+<Accordion title="Understanding List Indexing">
+- Positive indices start from 0 (beginning of list)
+- Negative indices start from -1 (end of list)
+- `lista[start:end]` returns elements from `start` up to (but not including) `end`
+</Accordion>
+
+<Accordion title="Slicing Shortcuts">
+- `lista[:n]` - first n elements
+- `lista[n:]` - from index n to end
+- `lista[:]` - copy of entire list
+</Accordion>
+</AccordionGroup>
+
+## Modifying Lists
+
+### Change Individual Elements
+
+```python
+lista = [1, 2, 3, 4, 5]
+lista[2] = 10   # Changes the third element to 10
+# Result: [1, 2, 10, 4, 5]
+```
+
+### Adding Elements
+
+```python
+lista = [1, 2, 3]
+
+# Append - adds element to the end
+lista.append(4)     # [1, 2, 3, 4]
+
+# Extend - adds multiple elements from another list
+lista.extend([5, 6])  # [1, 2, 3, 4, 5, 6]
+
+# Insert - adds element at specific position
+lista.insert(2, 10)  # Inserts 10 at index 2
+```
+
+<Tip>
+**append()** adds a single element, while **extend()** adds all elements from an iterable.
+</Tip>
+
+### Removing Elements
+
+```python
+lista = [1, 2, 3, 4, 5]
+
+# Remove by value - removes first occurrence
+lista.remove(3)     # Removes the value 3
+
+# Pop - removes and returns last element (or at specified index)
+elemento_eliminado = lista.pop()  # Removes last element
+
+# Delete by index
+del lista[2]  # Removes element at index 2
+```
+
+## Practical Example: Family Members List
+
+Here's a real-world example managing a family members list:
+
+```python
+miembrosDeLaFamilia = ["tatarabuelo"]
+miembrosDeLaFamiliaExpulsado = []
+
+# Adding members
+miembrosDeLaFamilia.append("abuelo")
+miembrosDeLaFamilia.insert(1, "abuela")
+miembrosDeLaFamilia.append("papa")
+miembrosDeLaFamilia.append("mama")
+miembrosDeLaFamilia.append("yo")
+
+print("ANTES:", miembrosDeLaFamilia)
+# Output: ['tatarabuelo', 'abuela', 'abuelo', 'papa', 'mama', 'yo']
+
+# Removing members
+del miembrosDeLaFamilia[2]
+miembrosDeLaFamilia.remove("abuelo")
+miembrosDeLaFamiliaExpulsado.append(miembrosDeLaFamilia.pop(2))
+
+print("DESPUES:", miembrosDeLaFamilia)
+print("cantidad de miembros:", len(miembrosDeLaFamilia))
+print("miembros expulsado:", miembrosDeLaFamiliaExpulsado)
+```
+
+## Sorting Lists
+
+### Sort In-Place
+
+The `sort()` method modifies the original list:
+
+```python
+# Sort numbers
+numeros = [3, 1, 4, 1, 5, 9, 2]
+numeros.sort()
+print(numeros)  # [1, 1, 2, 3, 4, 5, 9]
+
+# Sort strings alphabetically
+palabras = ["zebra", "manzana", "banana"]
+palabras.sort()
+print(palabras)  # ['banana', 'manzana', 'zebra']
+```
+
+### Sort Without Modifying Original
+
+Use the `sorted()` function to create a new sorted list:
+
+```python
+original = [3, 1, 4]
+ordenada = sorted(original)
+
+print(original)  # [3, 1, 4] - unchanged
+print(ordenada)  # [1, 3, 4] - new sorted list
+```
+
+<Note>
+**sort()** modifies the list in-place and returns None. **sorted()** returns a new sorted list.
+</Note>
+
+## Iterating Over Lists
+
+You can loop through list elements using a `for` loop:
+
+```python
+miembrosDeLaFamilia = ["papa", "mama", "yo"]
+
+for miembro in miembrosDeLaFamilia:
+    print("#->", miembro.upper())
+
+# Output:
+# #-> PAPA
+# #-> MAMA
+# #-> YO
+```
+
+## Common List Operations
+
+<AccordionGroup>
+<Accordion title="Get List Length">
+```python
+lista = [1, 2, 3, 4, 5]
+print(len(lista))  # 5
+```
+</Accordion>
+
+<Accordion title="Check if Element Exists">
+```python
+if "manzana" in frutas:
+    print("Found!")
+```
+</Accordion>
+
+<Accordion title="Count Occurrences">
+```python
+lista = [1, 2, 2, 3, 2, 4]
+print(lista.count(2))  # 3
+```
+</Accordion>
+
+<Accordion title="Find Index of Element">
+```python
+lista = [10, 20, 30, 40]
+print(lista.index(30))  # 2
+```
+</Accordion>
+</AccordionGroup>
+
+## Converting Between Lists and Tuples
+
+You can convert between lists and tuples:
+
+```python
+# Tuple to list
+tuplaMesclada = ("javier", 234, "javier", "hola mundo")
+tuplaMesclada = list(tuplaMesclada)
+print(tuplaMesclada)  # Now it's a list
+
+# List to tuple
+lista = [1, 2, 3]
+tupla = tuple(lista)
+```
+
+## Key Takeaways
+
+- Lists are **mutable** - you can modify them after creation
+- Lists are **ordered** - elements maintain their insertion order
+- Lists allow **duplicates** - the same value can appear multiple times
+- Lists can contain **mixed types** - numbers, strings, booleans, objects, etc.
+- Lists support **negative indexing** - access elements from the end
+
+<Tip>
+Use lists when you need a collection that can grow, shrink, or change over time. For fixed collections, consider using tuples instead.
+</Tip>

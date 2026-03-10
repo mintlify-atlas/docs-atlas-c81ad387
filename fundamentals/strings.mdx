@@ -1,0 +1,250 @@
+---
+title: String Handling in Python
+description: Master string manipulation, slicing, methods, and formatting techniques in Python
+---
+
+## Introduction to Strings
+
+Strings in Python are sequences of characters used to store and manipulate text. Python provides powerful tools for working with strings, including various formatting methods, slicing techniques, and built-in string methods.
+
+## Getting String Input
+
+The `input()` function always returns strings by default:
+
+```python
+variable1 = input("Ingrese el valor de la variable 1: ")
+variable2 = input("Ingrese el valor de la variable 2: ")
+
+print(f"Valor de variable1: {variable1}, Tipo: {type(variable1)}")
+print(f"Valor de variable2: {variable2}, Tipo: {type(variable2)}")
+```
+
+<Info>
+The `input()` function always returns a string, even if the user enters numbers. To work with numeric input, you must explicitly convert it using `int()` or `float()`.
+</Info>
+
+## String Formatting Methods
+
+Python offers multiple ways to format and display strings. All methods are valid - choose based on your preference and use case.
+
+### 1. Comma Separation
+
+```python
+print(variable1, variable2)
+```
+
+### 2. String Concatenation
+
+```python
+print(variable1 + variable2)
+```
+
+### 3. format() Method
+
+```python
+print("variable1: {} variable2: {}".format(variable1, variable2))
+```
+
+### 4. F-strings (Recommended)
+
+```python
+print(f"{variable1} {variable2}")
+```
+
+<Tip>
+F-strings (formatted string literals) are the most modern and readable way to format strings in Python 3.6+.
+</Tip>
+
+## String Slicing
+
+String slicing allows you to extract portions of a string using index notation `[start:end:step]`.
+
+```python
+texto = "ABCDEFGHIJKLMNOP"
+
+# Single character
+fragmento = texto[2]
+print(fragmento)  # C
+
+# From start to index 5 (excluding 5)
+fragmento = texto[:5]
+print(fragmento)  # ABCDE
+
+# From index 2 to 5 (excluding 5)
+fragmento = texto[2:5]
+print(fragmento)  # CDE
+
+# Every second character
+fragmento = texto[::2]
+print(fragmento)  # ACEGIKMO
+
+# Reverse the string
+fragmento = texto[::-1]
+print(fragmento)  # PONMLKJIHGFEDCBA
+
+# From index 2 to 10, every second character
+fragmento = texto[2:10:2]
+print(fragmento)  # CEGI
+```
+
+<Note>
+Slicing syntax: `string[start:end:step]`
+- `start`: Starting index (inclusive)
+- `end`: Ending index (exclusive)
+- `step`: Increment between characters
+</Note>
+
+## String Search Methods
+
+### The `in` Operator
+
+Check if a substring exists within a string:
+
+```python
+texto = "hola mundo como estas"
+if "mundo" in texto:
+    print("la palabra clave esta dentro del texto")
+```
+
+### index() Method
+
+Find the position of a substring:
+
+```python
+texto = "hola mundo como estas"
+
+# Find "mundo"
+print(texto.index("mundo"))  # 5
+
+# Start searching from index 5
+print(texto.index("a", 5))  # 20
+
+# Search between index 5 and 8
+print(texto.index("a", 5, 8))  # Error if not found
+```
+
+### rindex() Method
+
+Search from right to left:
+
+```python
+texto = "hola mundo como estas"
+
+# Find last occurrence of "o"
+print(texto.rindex("o"))  # 16
+
+# Search up to index 10
+print(texto.rindex("o", 0, 10))  # 9
+
+# Search between indices 5 and 15
+print(texto.rindex("o", 5, 15))  # 12
+```
+
+## String Transformation Methods
+
+### Case Conversion
+
+```python
+texto = "hola mundo como estas"
+
+# Convert to uppercase
+print(texto.upper())  # HOLA MUNDO COMO ESTAS
+
+# Convert to lowercase
+texto = "HOLA MUNDO"
+print(texto.lower())  # hola mundo
+
+# Capitalize first letter
+texto = "hola mundo"
+print(texto.capitalize())  # Hola mundo
+
+# Title case (capitalize each word)
+texto = "hola mundo"
+print(texto.title())  # Hola Mundo
+
+# Swap case
+texto = "HoLa MuNdO"
+print(texto.swapcase())  # hOlA mUnDo
+```
+
+### String Analysis Methods
+
+```python
+# Count character occurrences
+texto = "anita lava la tina"
+print(texto.count("la"))  # 2
+
+# Get string length
+texto = "hola mundo como estas"
+print(len(texto))  # 21
+```
+
+## String Validation Methods
+
+### startswith() and endswith()
+
+```python
+texto = "hola mundo"
+
+# Check if starts with substring
+print(texto.startswith("hol"))  # True
+
+# Check if ends with substring
+print(texto.endswith("do"))  # True
+```
+
+### isdigit()
+
+```python
+texto = "2455"
+print(texto.isdigit())  # True
+
+texto = "24a55"
+print(texto.isdigit())  # False
+```
+
+<Tip>
+Use `isdigit()` to validate numeric input before converting strings to integers.
+</Tip>
+
+## String Modification Methods
+
+### replace()
+
+Replace substrings:
+
+```python
+texto = "hola mundo"
+print(texto.replace("mundo", "familia"))  # hola familia
+```
+
+### strip()
+
+Remove leading and trailing whitespace:
+
+```python
+cadena = "   ¡Hola, mundo!   "
+cadena_sin_espacios = cadena.strip()
+print(cadena_sin_espacios)  # ¡Hola, mundo!
+```
+
+<Info>
+Related methods: `lstrip()` removes left whitespace, `rstrip()` removes right whitespace.
+</Info>
+
+## Common String Methods Summary
+
+| Method | Description | Example |
+|--------|-------------|----------|
+| `len()` | Get string length | `len("hello")` → 5 |
+| `upper()` | Convert to uppercase | `"hello".upper()` → "HELLO" |
+| `lower()` | Convert to lowercase | `"HELLO".lower()` → "hello" |
+| `capitalize()` | Capitalize first letter | `"hello".capitalize()` → "Hello" |
+| `title()` | Capitalize each word | `"hello world".title()` → "Hello World" |
+| `count()` | Count occurrences | `"hello".count("l")` → 2 |
+| `replace()` | Replace substring | `"hello".replace("l", "r")` → "herro" |
+| `strip()` | Remove whitespace | `" hi ".strip()` → "hi" |
+| `startswith()` | Check prefix | `"hello".startswith("he")` → True |
+| `endswith()` | Check suffix | `"hello".endswith("lo")` → True |
+| `isdigit()` | Check if numeric | `"123".isdigit()` → True |
+| `index()` | Find substring position | `"hello".index("e")` → 1 |

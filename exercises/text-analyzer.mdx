@@ -1,0 +1,208 @@
+---
+title: 'Text Analyzer'
+description: 'Build a text analysis program that counts letter occurrences, words, and checks for specific strings'
+---
+
+## Overview
+
+This exercise demonstrates fundamental Python string manipulation techniques. You'll create a program that analyzes user-provided text to count specific letters, determine text length, find first and last characters, reverse the text, and search for keywords.
+
+<Note>
+  **Difficulty Level**: Basic
+  
+  **Concepts Covered**: String methods, lists, user input, conditional logic
+</Note>
+
+## What You'll Learn
+
+<Steps>
+  <Step title="String Input and Transformation">
+    Learn how to capture user input and transform it using the `.lower()` method for case-insensitive operations
+  </Step>
+  
+  <Step title="List Operations">
+    Work with lists to store multiple values and access them by index
+  </Step>
+  
+  <Step title="String Methods">
+    Use built-in string methods like `.count()`, `.split()`, and string indexing
+  </Step>
+  
+  <Step title="Conditional Checking">
+    Implement the `in` operator to check if a substring exists within a larger string
+  </Step>
+</Steps>
+
+## Complete Code
+
+Here's the full implementation of the text analyzer:
+
+```python
+texto=input("ingresa un texto cualquiera=>").lower()
+
+letras=list()
+print("ingresa 3 letras a tu elección:")
+letras.append(input("ingresa la primer letra a tu elección=>").lower())
+letras.append(input("ingresa la segunda letra a tu elección=>").lower())
+letras.append(input("ingresa la tercer letra a tu elección=>").lower())
+
+print(f"la letra {letras[0]} aparece {texto.count(letras[0])} veces")
+print(f"la letra {letras[1]} aparece {texto.count(letras[1])} veces")
+print(f"la letra {letras[2]} aparece {texto.count(letras[2])} veces")
+
+cantidad_de_palabras=texto.split()
+print(f"en el el texto hay {len(cantidad_de_palabras)} palabras")
+
+primer_letra=texto[0]
+ultima_letra=texto[-1]
+print(f"la primer letra es: {primer_letra}")
+print(f"la ultima letra es: {ultima_letra}")
+print(f"el texto invertido es: {cantidad_de_palabras[::-1]}")
+
+if "python" in texto:
+    print(f"python esta en el texto")
+else:
+    print(f"python no esta en el texto")
+```
+
+## Code Breakdown
+
+### Section 1: Capturing Text Input
+
+```python
+texto=input("ingresa un texto cualquiera=>").lower()
+```
+
+<Info>
+  The `.lower()` method converts all characters to lowercase, ensuring case-insensitive analysis. This means "Python", "PYTHON", and "python" will all be treated the same way.
+</Info>
+
+### Section 2: Collecting Letter Choices
+
+```python
+letras=list()
+print("ingresa 3 letras a tu elección:")
+letras.append(input("ingresa la primer letra a tu elección=>").lower())
+letras.append(input("ingresa la segunda letra a tu elección=>").lower())
+letras.append(input("ingresa la tercer letra a tu elección=>").lower())
+```
+
+This section creates an empty list and uses `.append()` to add three user-chosen letters. Each letter is also converted to lowercase for consistency.
+
+### Section 3: Counting Letter Occurrences
+
+```python
+print(f"la letra {letras[0]} aparece {texto.count(letras[0])} veces")
+print(f"la letra {letras[1]} aparece {texto.count(letras[1])} veces")
+print(f"la letra {letras[2]} aparece {texto.count(letras[2])} veces")
+```
+
+<Accordion title="Understanding the .count() Method">
+  The `.count()` string method returns the number of non-overlapping occurrences of a substring in the string. For example:
+  
+  ```python
+  "hello world".count("l")  # Returns 3
+  "banana".count("ana")     # Returns 1 (non-overlapping)
+  ```
+</Accordion>
+
+### Section 4: Word Count Analysis
+
+```python
+cantidad_de_palabras=texto.split()
+print(f"en el el texto hay {len(cantidad_de_palabras)} palabras")
+```
+
+The `.split()` method without arguments splits the string by whitespace, creating a list of words. Using `len()` on this list gives us the word count.
+
+### Section 5: First and Last Character
+
+```python
+primer_letra=texto[0]
+ultima_letra=texto[-1]
+print(f"la primer letra es: {primer_letra}")
+print(f"la ultima letra es: {ultima_letra}")
+```
+
+<Info>
+  **String Indexing**: 
+  - `texto[0]` accesses the first character
+  - `texto[-1]` accesses the last character using negative indexing
+</Info>
+
+### Section 6: Reversing the Text
+
+```python
+print(f"el texto invertido es: {cantidad_de_palabras[::-1]}")
+```
+
+The slice notation `[::-1]` reverses the list of words. This creates a reversed word order, not a character-by-character reversal.
+
+### Section 7: Keyword Search
+
+```python
+if "python" in texto:
+    print(f"python esta en el texto")
+else:
+    print(f"python no esta en el texto")
+```
+
+The `in` operator checks for substring existence and returns a boolean value.
+
+## How to Run
+
+<Steps>
+  <Step title="Save the File">
+    Save the code in a file named `text_analyzer.py`
+  </Step>
+  
+  <Step title="Run the Program">
+    Execute from your terminal:
+    ```bash
+    python text_analyzer.py
+    ```
+  </Step>
+  
+  <Step title="Follow the Prompts">
+    - Enter any text you want to analyze
+    - Enter three letters to count their occurrences
+    - View the analysis results
+  </Step>
+</Steps>
+
+## Example Usage
+
+```
+ingresa un texto cualquiera=>Python is a powerful programming language
+ingresa 3 letras a tu elección:
+ingresa la primer letra a tu elección=>a
+ingresa la segunda letra a tu elección=>o
+ingresa la tercer letra a tu elección=>p
+
+la letra a aparece 4 veces
+la letra o aparece 2 veces
+la letra p aparece 2 veces
+en el el texto hay 6 palabras
+la primer letra es: p
+la ultima letra es: e
+el texto invertido es: ['language', 'programming', 'powerful', 'a', 'is', 'python']
+python esta en el texto
+```
+
+## Enhancement Ideas
+
+<Accordion title="Ways to Improve This Program">
+  1. **Character-level reversal**: Use `texto[::-1]` to reverse individual characters
+  2. **Vowel counting**: Count all vowels automatically
+  3. **Most common letter**: Find which letter appears most frequently
+  4. **Palindrome detection**: Check if the text reads the same forwards and backwards
+  5. **Input validation**: Handle empty strings or invalid inputs gracefully
+</Accordion>
+
+## Key Takeaways
+
+- String methods like `.lower()`, `.count()`, and `.split()` are powerful for text analysis
+- Lists can store multiple related values and be accessed via indexing
+- String slicing with `[::-1]` reverses sequences
+- The `in` operator simplifies substring searches
+- F-strings make output formatting clean and readable

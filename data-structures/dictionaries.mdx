@@ -1,0 +1,389 @@
+---
+title: "Dictionaries"
+description: "Master Python dictionaries - key-value collections for fast lookups. Learn creation, access, modification, iteration, and advanced dictionary techniques."
+---
+
+# Dictionaries in Python
+
+Dictionaries are collections of key-value pairs. Since Python 3.7+, they maintain insertion order. They provide fast lookups and are one of Python's most versatile data structures.
+
+<Note>
+Dictionaries use **keys** to access values, unlike lists which use numeric indices.
+</Note>
+
+## Creating Dictionaries
+
+### Using Curly Braces
+
+```python
+# Form 1: With curly braces {}
+persona = {
+    "nombre": "Juan",
+    "edad": 30,
+    "ciudad": "Madrid"
+}
+```
+
+### Using dict() Constructor
+
+```python
+# Form 2: With dict()
+carro = dict(marca="Toyota", modelo="Corolla", año=2020)
+```
+
+### Empty Dictionary
+
+```python
+vacio = {}
+# or: vacio = dict()
+```
+
+## Accessing Values
+
+### Direct Access with Brackets
+
+```python
+print(persona["nombre"])  # Juan
+
+# ❌ KeyError if key doesn't exist
+# print(persona["apellido"])  # KeyError
+```
+
+### Safe Access with get()
+
+```python
+# Safe way: use get() - returns None if key doesn't exist
+print(persona.get("apellido"))  # None
+
+# Provide a default value
+print(persona.get("apellido", "No disponible"))  # "No disponible"
+```
+
+<Tip>
+Always use **get()** when you're not sure if a key exists. It prevents KeyError exceptions.
+</Tip>
+
+## Adding and Modifying Elements
+
+```python
+# Add new key-value pair
+persona["apellido"] = "Pérez"
+
+# Modify existing value
+persona["edad"] = 31
+
+print(persona)
+# {'nombre': 'Juan', 'edad': 31, 'ciudad': 'Madrid', 'apellido': 'Pérez'}
+```
+
+## Removing Elements
+
+<AccordionGroup>
+<Accordion title="del - Remove by Key">
+```python
+del persona["ciudad"]  # Removes the 'ciudad' key
+```
+Removes a key-value pair. Raises KeyError if key doesn't exist.
+</Accordion>
+
+<Accordion title="pop() - Remove and Return">
+```python
+eliminado = persona.pop("apellido")
+print(eliminado)  # Pérez
+```
+Removes a key and returns its value. Can provide a default if key doesn't exist.
+</Accordion>
+
+<Accordion title="clear() - Empty Dictionary">
+```python
+persona.clear()  # Removes all items
+print(persona)   # {}
+```
+Removes all items from the dictionary.
+</Accordion>
+</AccordionGroup>
+
+## Checking Key Existence
+
+```python
+if "nombre" in persona:
+    print("La clave 'nombre' existe")
+
+if "telefono" not in persona:
+    print("No hay teléfono registrado")
+```
+
+## Important Dictionary Methods
+
+### keys() - Get All Keys
+
+```python
+estudiante = {
+    "nombre": "Ana",
+    "edad": 22,
+    "carrera": "Ingeniería"
+}
+
+claves = estudiante.keys()
+print(claves)  # dict_keys(['nombre', 'edad', 'carrera'])
+```
+
+### values() - Get All Values
+
+```python
+valores = estudiante.values()
+print(valores)  # dict_values(['Ana', 22, 'Ingeniería'])
+```
+
+### items() - Get Key-Value Pairs
+
+```python
+items = estudiante.items()
+print(items)
+# dict_items([('nombre', 'Ana'), ('edad', 22), ('carrera', 'Ingeniería')])
+```
+
+## Iterating Over Dictionaries
+
+### Iterate Over Keys (Default)
+
+```python
+for clave in estudiante:
+    print(clave)
+# Output: nombre, edad, carrera
+```
+
+### Iterate Over Values
+
+```python
+for valor in estudiante.values():
+    print(valor)
+# Output: Ana, 22, Ingeniería
+```
+
+### Iterate Over Key-Value Pairs
+
+```python
+for clave, valor in estudiante.items():
+    print(f"{clave}: {valor}")
+# Output:
+# nombre: Ana
+# edad: 22
+# carrera: Ingeniería
+```
+
+<Tip>
+Use **items()** when you need both keys and values - it's more efficient than accessing values separately.
+</Tip>
+
+## Nested Dictionaries
+
+Dictionaries can contain other dictionaries:
+
+```python
+empresa = {
+    "empleado1": {
+        "nombre": "Carlos",
+        "puesto": "Desarrollador",
+        "salario": 50000
+    },
+    "empleado2": {
+        "nombre": "María",
+        "puesto": "Diseñadora",
+        "salario": 45000
+    }
+}
+
+# Access nested values
+print(empresa["empleado1"]["nombre"])  # Carlos
+```
+
+## Copying Dictionaries
+
+### Wrong Way (Reference)
+
+```python
+original = {"a": 1, "b": 2}
+
+# ❌ This doesn't copy, just creates a reference
+copia_mala = original
+copia_mala["c"] = 3
+print(original)  # {'a': 1, 'b': 2, 'c': 3} - original modified!
+```
+
+### Correct Ways
+
+```python
+# ✅ Method 1: use copy()
+copia_buena = original.copy()
+
+# ✅ Method 2: use dict() constructor
+copia_buena = dict(original)
+```
+
+<Warning>
+Always use **copy()** or **dict()** to create independent copies of dictionaries.
+</Warning>
+
+## Merging Dictionaries
+
+### Using the | Operator (Python 3.9+)
+
+```python
+dict1 = {"a": 1, "b": 2}
+dict2 = {"c": 3, "d": 4}
+
+combinado = dict1 | dict2
+print(combinado)  # {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+```
+
+### Using update() Method
+
+```python
+dict1 = {"a": 1, "b": 2}
+dict2 = {"c": 3, "d": 4}
+
+# Modifies dict1 in-place
+dict1.update(dict2)
+print(dict1)  # {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+```
+
+## Default Values with defaultdict
+
+Use `defaultdict` to automatically create default values:
+
+```python
+from collections import defaultdict
+
+# If you access a key that doesn't exist, creates a default value
+contador = defaultdict(int)  # int() returns 0
+contador["manzanas"] += 1
+contador["naranjas"] += 3
+
+print(contador)
+# defaultdict(<class 'int'>, {'manzanas': 1, 'naranjas': 3})
+```
+
+<Tip>
+**defaultdict** is perfect for counters, grouping items, or building nested structures.
+</Tip>
+
+## Dictionary Comprehension
+
+Create dictionaries in a compact, elegant way:
+
+### Basic Comprehension
+
+```python
+# Create dictionary with comprehension
+cuadrados = {x: x ** 2 for x in range(1, 6)}
+print(cuadrados)  # {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+```
+
+### With Condition
+
+```python
+# Only include even numbers
+pares = {x: x ** 2 for x in range(10) if x % 2 == 0}
+print(pares)  # {0: 0, 2: 4, 4: 16, 6: 36, 8: 64}
+```
+
+## Practical Example: Student Registration
+
+Here's a real-world example using dictionaries:
+
+```python
+listaEstudiantesRiwi = []
+
+ingresarOtroEstudiante = "si"
+while ingresarOtroEstudiante == "si":
+    print("Nuevo estudiante")
+    nombre = input("ingrese el nombre =>")
+    apellido = input("ingrese el apellido =>")
+    edad = input("ingrese la edad =>")
+    direccion = input("ingrese la direccion =>")
+    correo = input("ingrese su correo =>")
+
+    estudiante = {
+        "nombre": nombre,
+        "apellido": apellido,
+        "edad": edad,
+        "direccion": direccion,
+        "correo": correo
+    }
+    
+    listaEstudiantesRiwi.append(estudiante)
+    respuesta = input("vas a ingresar otro estudiante? =>")
+    
+    if respuesta != "si":
+        ingresarOtroEstudiante = False
+
+# Display all students
+for estudiante in listaEstudiantesRiwi:
+    print(f"""
+        Nombre=> {estudiante["nombre"]}
+        Apellido=> {estudiante["apellido"]}
+        Edad=> {estudiante["edad"]}
+        Correo=> {estudiante["correo"]}
+        Direccion=> {estudiante["direccion"]}
+    """)
+```
+
+## Common Dictionary Patterns
+
+<AccordionGroup>
+<Accordion title="Count Occurrences">
+```python
+from collections import defaultdict
+
+palabras = ["manzana", "banana", "manzana", "cereza", "banana"]
+contador = defaultdict(int)
+
+for palabra in palabras:
+    contador[palabra] += 1
+
+print(dict(contador))  # {'manzana': 2, 'banana': 2, 'cereza': 1}
+```
+</Accordion>
+
+<Accordion title="Group Items">
+```python
+from collections import defaultdict
+
+estudiantes = [
+    {"nombre": "Ana", "carrera": "Ingeniería"},
+    {"nombre": "Luis", "carrera": "Medicina"},
+    {"nombre": "María", "carrera": "Ingeniería"}
+]
+
+grupos = defaultdict(list)
+for estudiante in estudiantes:
+    grupos[estudiante["carrera"]].append(estudiante["nombre"])
+
+print(dict(grupos))
+# {'Ingeniería': ['Ana', 'María'], 'Medicina': ['Luis']}
+```
+</Accordion>
+
+<Accordion title="Swap Keys and Values">
+```python
+original = {"a": 1, "b": 2, "c": 3}
+invertido = {valor: clave for clave, valor in original.items()}
+print(invertido)  # {1: 'a', 2: 'b', 3: 'c'}
+```
+</Accordion>
+</AccordionGroup>
+
+## Key Takeaways
+
+- Dictionaries use **keys** for fast value lookups (O(1) average)
+- Keys must be **immutable** (strings, numbers, tuples)
+- Since Python 3.7+, dictionaries **maintain insertion order**
+- Use **get()** for safe access to avoid KeyError
+- **items()** is the best way to iterate over key-value pairs
+- Dictionary comprehensions create dictionaries elegantly
+- **defaultdict** simplifies working with missing keys
+
+<Note>
+Dictionaries are ideal when you need fast lookups by key, when data has natural key-value relationships, or when you're counting or grouping items.
+</Note>

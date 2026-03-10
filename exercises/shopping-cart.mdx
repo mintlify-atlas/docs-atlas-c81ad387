@@ -1,0 +1,487 @@
+---
+title: 'Shopping Cart System'
+description: 'Build a complete e-commerce shopping cart with user registration, product management, and billing calculations'
+---
+
+## Overview
+
+This exercise creates a comprehensive shopping cart system that handles user registration, product selection, cart management, and invoice generation with tax calculations. It demonstrates real-world e-commerce functionality.
+
+<Note>
+  **Difficulty Level**: Intermediate
+  
+  **Concepts Covered**: Nested lists, user management, cart operations, mathematical calculations, IVA/tax handling, error handling
+</Note>
+
+## What You'll Learn
+
+<Steps>
+  <Step title="Multi-dimensional Data Structures">
+    Work with nested lists where each product contains multiple attributes
+  </Step>
+  
+  <Step title="User Session Management">
+    Manage user data and allow updates during the session
+  </Step>
+  
+  <Step title="Shopping Cart Operations">
+    Implement add, update, delete, and list functionality for cart items
+  </Step>
+  
+  <Step title="Financial Calculations">
+    Calculate subtotals, taxes (IVA), and final totals
+  </Step>
+  
+  <Step title="Error Handling">
+    Use try-except blocks to handle invalid user input gracefully
+  </Step>
+</Steps>
+
+## Complete Code
+
+Here's the full shopping cart system implementation:
+
+```python
+usuario = []
+# Nombre - precio - categoria
+productos = [
+    ["arroz lb", 4000, "comestibles"],
+    ["azucar lb", 4500, "comestibles"],
+    ["platano lb", 1000, "vegetales"],
+    ["pollo lb", 6000, "carnes"],
+    ["res lb", 7500, "carnes"],
+    ["banano lb", 2000, "frutas"],
+    ["pera lb", 3000, "frutas"],
+    ["jabon en polvo lb", 4200, "limpieza"],
+    ["tomate lb", 1500, "vegetales"],
+    ["papa lb", 4000, "vegetales"]
+]
+
+carrito = []
+
+
+print()
+print("==" * 25)
+print("||              Carrito de compras              ||")
+print("==" * 25)
+try:
+    while True:
+        print("-" * 50)
+        print("                      MENU                      ")
+        print("-" * 50)
+        print()
+        print("[1] Registrar usuario o actualizar datos usuario")
+        print("[2] Agregar producto al carrito de compras")
+        print("[3] Listar el carrito de compras")
+        print("[4] Actualizar carrito de compras")
+        print("[5] Eliminar producto en carrito de compras")
+        print("[6] Finalizar programa")
+        opcion = int(input("->"))
+        if opcion == 1:
+            print("-" * 50)
+            if not usuario:
+                nombre = input("Ingrese su nombre(s) =>")
+                apellido = input("Ingrese su apellido(s) =>")
+                documento = input("Ingrese su numero de documento=>")
+
+                usuario.append(nombre)
+                usuario.append(apellido)
+                usuario.append(documento)
+
+                print("Usuario registrado correctamente")
+            else:
+                print("El usuario ya esta registrado, si lo deseas puedes editarlo")
+                print()
+                nombre = input("Ingrese su nombre(s) =>")
+                apellido = input("Ingrese su apellido(s) =>")
+                documento = input("Ingrese su numero de documento=>")
+
+                usuario[0] = nombre
+                usuario[1] = apellido
+                usuario[2] = documento
+
+                print("Usuario actualizado correctamente")
+        elif opcion == 2:
+            print("-" * 50)
+            print("Productos disponibles")
+            print("-" * 50)
+            cont = 0
+            for i in productos:
+                print(f"[{cont + 1}] {i[0]} - ({i[1]})")
+                cont += 1
+            producto = int(input("Ingrese el id del producto que quieres agregar =>"))
+            producto = (producto - 1)
+            print(f"    ¿Cuantas cantidades de '{productos[producto][0]}' quieres?")
+            cantidad = int(input("(Ejm:7)-> "))
+            producto_carrito = []
+            producto_carrito.append(productos[producto][0])
+            producto_carrito.append(productos[producto][1])
+            producto_carrito.append(cantidad)
+            producto_carrito.append((productos[producto][1] * cantidad))
+            producto_carrito.append(productos[producto][2])
+            carrito.append(producto_carrito)
+            print()
+            print("PRODUCTO AGREGADO AL CARRITO")
+            print()
+        elif opcion == 3:
+            print("-" * 50)
+            if not carrito:
+                print("El carrito esta vacio")
+            else:
+                print("-" * 35)
+                print("carrito actual")
+                print("-" * 35)
+                subtotal = 0
+                for i in carrito:
+                    print(f"{i[0]}({i[1]}) * {i[2]} = {i[3]}")
+                    subtotal += i[3]
+                print("-" * 35)
+                iva = subtotal * 0.19
+                total = (subtotal + iva)
+
+                print("SUBTOTAL =", subtotal)
+                print("IVA 19% =", iva)
+                print("TOTAL =", total)
+                print("-" * 35)
+        elif opcion == 4:
+            print("-" * 50)
+            if not carrito:
+                print("El carrito esta vacio")
+            else:
+                print("Carrito")
+                cont = 0
+                for i in carrito:
+                    print(f"[{cont + 1}] {i[0]}({i[1]}) * {i[2]} = {i[3]}")
+                    cont += 1
+                producto = int(input("Ingrese el id del producto que quieres actualizar =>"))
+                producto = (producto - 1)
+                cantidad_nueva = int(input(f"    ¿Cuantas cantidades de '{carrito[producto][0]}' quieres? =>"))
+                carrito[producto][2] = cantidad_nueva
+                carrito[producto][3] = (carrito[producto][3] * cantidad_nueva)
+                print()
+                print("PRODUCTO ACTUALIZADO CORRECTAMENTE")
+                print()
+        elif opcion == 5:
+            print("-" * 50)
+            if not carrito:
+                print("El carrito esta vacio")
+            else:
+                print("Carrito")
+                cont = 0
+                for i in carrito:
+                    print(f"[{cont + 1}] {i[0]}({i[1]}) * {i[2]} = {i[3]}")
+                    cont += 1
+                producto = int(input("Ingrese el id del producto que quieres eliminar =>"))
+                producto = (producto - 1)
+                del carrito[producto]
+                print()
+                print("PRODUCTO ELIMINADO CORRECTAMENTE")
+                print()
+        elif opcion == 6:
+            print("Fue un gusto atenderte")
+            exit()
+        else:
+            print("la opcion no esta dentro del menu")
+except ValueError:
+    print("Ingresaste un valor invalido")
+```
+
+## Code Breakdown
+
+### Section 1: Data Structures
+
+```python
+usuario = []
+productos = [
+    ["arroz lb", 4000, "comestibles"],
+    ["azucar lb", 4500, "comestibles"],
+    # ... more products
+]
+carrito = []
+```
+
+<Info>
+  **Three Key Data Structures**:
+  - `usuario`: A list storing user information [nombre, apellido, documento]
+  - `productos`: A list of lists where each inner list is [nombre, precio, categoria]
+  - `carrito`: A list of lists where each item is [nombre, precio, cantidad, total, categoria]
+</Info>
+
+### Section 2: User Registration (Option 1)
+
+```python
+if opcion == 1:
+    if not usuario:
+        # First-time registration
+        nombre = input("Ingrese su nombre(s) =>")
+        apellido = input("Ingrese su apellido(s) =>")
+        documento = input("Ingrese su numero de documento=>")
+        
+        usuario.append(nombre)
+        usuario.append(apellido)
+        usuario.append(documento)
+        
+        print("Usuario registrado correctamente")
+    else:
+        # Update existing user
+        usuario[0] = nombre
+        usuario[1] = apellido
+        usuario[2] = documento
+```
+
+<Accordion title="Why check 'if not usuario'?">
+  An empty list evaluates to `False` in Python, so `if not usuario` checks if the list is empty. This pattern determines whether to register a new user or update an existing one.
+</Accordion>
+
+### Section 3: Add Product to Cart (Option 2)
+
+```python
+elif opcion == 2:
+    print("Productos disponibles")
+    cont = 0
+    for i in productos:
+        print(f"[{cont + 1}] {i[0]} - ({i[1]})")
+        cont += 1
+    
+    producto = int(input("Ingrese el id del producto que quieres agregar =>"))
+    producto = (producto - 1)  # Convert to 0-based index
+    
+    cantidad = int(input(f"¿Cuantas cantidades de '{productos[producto][0]}' quieres? "))
+    
+    producto_carrito = []
+    producto_carrito.append(productos[producto][0])  # name
+    producto_carrito.append(productos[producto][1])  # price
+    producto_carrito.append(cantidad)                 # quantity
+    producto_carrito.append((productos[producto][1] * cantidad))  # total
+    producto_carrito.append(productos[producto][2])  # category
+    
+    carrito.append(producto_carrito)
+```
+
+<Steps>
+  <Step title="Display Products">
+    Show all available products with 1-based numbering for user convenience
+  </Step>
+  
+  <Step title="Get Selection">
+    Convert user's 1-based selection to 0-based index for list access
+  </Step>
+  
+  <Step title="Calculate Total">
+    Multiply unit price by quantity to get line item total
+  </Step>
+  
+  <Step title="Build Cart Item">
+    Create a new list with all product details including calculated total
+  </Step>
+</Steps>
+
+### Section 4: View Cart with Invoice (Option 3)
+
+```python
+elif opcion == 3:
+    if not carrito:
+        print("El carrito esta vacio")
+    else:
+        print("carrito actual")
+        subtotal = 0
+        for i in carrito:
+            print(f"{i[0]}({i[1]}) * {i[2]} = {i[3]}")
+            subtotal += i[3]
+        
+        iva = subtotal * 0.19
+        total = (subtotal + iva)
+        
+        print("SUBTOTAL =", subtotal)
+        print("IVA 19% =", iva)
+        print("TOTAL =", total)
+```
+
+<Note>
+  **IVA Calculation**: IVA (Impuesto al Valor Agregado) is the Value Added Tax used in many Spanish-speaking countries. In this example, it's calculated as 19% of the subtotal.
+</Note>
+
+### Section 5: Update Cart Item (Option 4)
+
+```python
+elif opcion == 4:
+    if not carrito:
+        print("El carrito esta vacio")
+    else:
+        # Display cart items
+        cont = 0
+        for i in carrito:
+            print(f"[{cont + 1}] {i[0]}({i[1]}) * {i[2]} = {i[3]}")
+            cont += 1
+        
+        producto = int(input("Ingrese el id del producto que quieres actualizar =>"))
+        producto = (producto - 1)
+        cantidad_nueva = int(input(f"¿Cuantas cantidades de '{carrito[producto][0]}' quieres? =>"))
+        
+        carrito[producto][2] = cantidad_nueva
+        carrito[producto][3] = (carrito[producto][1] * cantidad_nueva)
+```
+
+<Info>
+  When updating quantity, the code also recalculates the line total by multiplying the unit price (index 1) by the new quantity.
+</Info>
+
+### Section 6: Delete Cart Item (Option 5)
+
+```python
+elif opcion == 5:
+    if not carrito:
+        print("El carrito esta vacio")
+    else:
+        # Display cart
+        cont = 0
+        for i in carrito:
+            print(f"[{cont + 1}] {i[0]}({i[1]}) * {i[2]} = {i[3]}")
+            cont += 1
+        
+        producto = int(input("Ingrese el id del producto que quieres eliminar =>"))
+        producto = (producto - 1)
+        del carrito[producto]
+```
+
+### Section 7: Error Handling
+
+```python
+try:
+    while True:
+        # All menu logic here
+except ValueError:
+    print("Ingresaste un valor invalido")
+```
+
+<Accordion title="Why wrap everything in try-except?">
+  The try-except block catches `ValueError` exceptions that occur when users enter non-numeric input for operations expecting integers (like menu choices or quantities). This prevents the program from crashing unexpectedly.
+</Accordion>
+
+## How to Run
+
+<Steps>
+  <Step title="Save the File">
+    Save the code in a file named `shopping_cart.py`
+  </Step>
+  
+  <Step title="Run the Program">
+    Execute from your terminal:
+    ```bash
+    python shopping_cart.py
+    ```
+  </Step>
+  
+  <Step title="Follow the Workflow">
+    1. Register a user (Option 1)
+    2. Add products to cart (Option 2)
+    3. View cart and invoice (Option 3)
+    4. Update quantities if needed (Option 4)
+    5. Remove items if needed (Option 5)
+    6. Exit when done (Option 6)
+  </Step>
+</Steps>
+
+## Example Shopping Session
+
+```
+==================================================
+||              Carrito de compras              ||
+==================================================
+--------------------------------------------------
+                      MENU                      
+--------------------------------------------------
+
+[1] Registrar usuario o actualizar datos usuario
+[2] Agregar producto al carrito de compras
+[3] Listar el carrito de compras
+[4] Actualizar carrito de compras
+[5] Eliminar producto en carrito de compras
+[6] Finalizar programa
+->1
+--------------------------------------------------
+Ingrese su nombre(s) =>Juan
+Ingrese su apellido(s) =>Perez
+Ingrese su numero de documento=>12345678
+Usuario registrado correctamente
+
+->2
+--------------------------------------------------
+Productos disponibles
+--------------------------------------------------
+[1] arroz lb - (4000)
+[2] azucar lb - (4500)
+[3] platano lb - (1000)
+[4] pollo lb - (6000)
+...
+Ingrese el id del producto que quieres agregar =>1
+    ¿Cuantas cantidades de 'arroz lb' quieres?
+(Ejm:7)-> 2
+
+PRODUCTO AGREGADO AL CARRITO
+
+->3
+--------------------------------------------------
+-----------------------------------
+carrito actual
+-----------------------------------
+arroz lb(4000) * 2 = 8000
+-----------------------------------
+SUBTOTAL = 8000
+IVA 19% = 1520.0
+TOTAL = 9520.0
+-----------------------------------
+```
+
+## Enhancement Ideas
+
+<Accordion title="Ways to Improve This Program">
+  1. **Discount System**: Add coupon codes or promotional discounts
+  2. **Stock Management**: Track inventory and prevent ordering out-of-stock items
+  3. **Payment Processing**: Simulate payment methods and receipt generation
+  4. **Order History**: Save completed orders for the user
+  5. **Product Search**: Add search functionality by name or category
+  6. **Category Filtering**: Show products filtered by category
+  7. **Multiple Users**: Support multiple user accounts with login
+  8. **Data Persistence**: Save cart and user data to files
+  9. **Price Formatting**: Use proper currency formatting for display
+  10. **Duplicate Prevention**: Check if product already in cart and update quantity instead
+</Accordion>
+
+## Common Issues and Solutions
+
+<Accordion title="Bug in Update Calculation">
+  **Issue**: Line 116 has a bug in the total calculation:
+  ```python
+  carrito[producto][3] = (carrito[producto][3] * cantidad_nueva)
+  ```
+  
+  **Problem**: This multiplies the old total by new quantity instead of recalculating from unit price.
+  
+  **Fix**: Should be:
+  ```python
+  carrito[producto][3] = (carrito[producto][1] * cantidad_nueva)
+  ```
+</Accordion>
+
+<Accordion title="IndexError when accessing cart items">
+  **Problem**: User enters an invalid product ID.
+  
+  **Solution**: Add validation:
+  ```python
+  if 0 <= producto < len(carrito):
+      # perform operation
+  else:
+      print("ID de producto invalido")
+  ```
+</Accordion>
+
+## Key Takeaways
+
+- Nested lists can represent complex data structures like product catalogs and shopping carts
+- Converting between 1-based user display and 0-based indexing is a common pattern
+- Financial calculations should account for subtotals, taxes, and final totals
+- Empty list checking with `if not list` is a Pythonic way to test for empty collections
+- Try-except blocks provide graceful error handling for user input
+- Recalculating derived values (like totals) is important when updating source values (like quantities)
+- Menu-driven applications benefit from clear visual separators and consistent formatting

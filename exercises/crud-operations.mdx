@@ -1,0 +1,391 @@
+---
+title: 'CRUD Operations - Coders Management'
+description: 'Build a complete Create, Read, Update, Delete (CRUD) system to manage a list of coders with their information'
+---
+
+## Overview
+
+This exercise implements a full CRUD (Create, Read, Update, Delete) system for managing coder records. You'll work with lists of dictionaries, create a menu-driven interface, and perform all four fundamental database operations.
+
+<Note>
+  **Difficulty Level**: Intermediate
+  
+  **Concepts Covered**: Lists, dictionaries, while loops, menu systems, data manipulation, indexing
+</Note>
+
+## What You'll Learn
+
+<Steps>
+  <Step title="Working with Complex Data Structures">
+    Manage lists containing dictionaries to represent structured data
+  </Step>
+  
+  <Step title="CRUD Operations">
+    Implement Create, Read, Update, and Delete functionality
+  </Step>
+  
+  <Step title="Menu-Driven Programs">
+    Build an interactive menu system using while loops
+  </Step>
+  
+  <Step title="Data Indexing">
+    Use indices to access and modify specific records in a list
+  </Step>
+</Steps>
+
+## Complete Code
+
+Here's the full CRUD system implementation:
+
+```python
+coders=[
+    {
+        "nombre":"Javier",
+        "edad":25,
+        "riwipoints":4
+    },
+    {
+        "nombre":"lucas",
+        "edad":18,
+        "riwipoints":8
+    },
+    {
+        "nombre":"pablo",
+        "edad":30,
+        "riwipoints":5
+    },
+    {
+        "nombre":"judas",
+        "edad":19,
+        "riwipoints":0
+    },
+    {
+        "nombre":"mateo uno",
+        "edad":36,
+        "riwipoints":9
+    }
+]
+
+while True:
+    print("""
+    MENU
+    (1) registrar un nuevo coder
+
+    (2) actualizar coder
+
+    (3) eliminar coder
+
+    (4) listar coders
+
+    (5) cerrar programa
+    """)
+
+    opcionMenu=input("INGRESA LA OPCION=>")
+    if opcionMenu=="1":
+        nombre=input("ingresa el nombre del coder=>")
+        edad=int(input("ingresa la edad del coder=>"))
+        riwipoints=int(input("ingresa los riwipoints del coder=>"))
+
+        nuevoCoder={
+            "nombre":nombre,
+            "edad":edad,
+            "riwipoints":riwipoints
+        }
+
+        coders.append(nuevoCoder)
+    elif opcionMenu=="2":
+        indice=0
+        for coder in coders:
+            #mostrar informacion de coders
+            print(f"""
+                id=[{indice}]
+                Nombre={coder["nombre"]}
+                Edad={coder["edad"]}
+                Riwipoints={coder["riwipoints"]}
+                """)
+            indice+=1
+
+        #pedimos los nuevos datos   
+        coderParaActualizar=int(input("ingresa el id del coder que quieres actualizar=>"))
+        nuevoNombre=input("ingresa el nuevo nombre del coder=>")
+        nuevaEdad=int(input("ingresa la nueva edad del coder=>"))
+        nuevosRiwipoints=int(input("ingresa los nuevos riwipoints del coder=>"))
+
+        #actualizar los nuevos datos
+        coders[coderParaActualizar]["nombre"]=nuevoNombre
+        coders[coderParaActualizar]["edad"]=nuevaEdad
+        coders[coderParaActualizar]["riwipoints"]=nuevosRiwipoints
+    elif opcionMenu=="3":
+        indice=0
+        for coder in coders:
+            print(f"id=[{indice}] - {coder["nombre"]}")
+            indice+=1
+
+        coderAeliminar=int(input("ingrese el ID del coder que quiere eliminar"))
+        del coders[coderAeliminar]
+    elif opcionMenu=="4":
+        print("lista de coders")
+        for coder in coders:
+            print(f"""
+                NOMBRE CODER= {coder["nombre"]}
+                EDAD= {coder["edad"]}
+                RIWIPOINTS= {coder["riwipoints"]}
+                """)
+    elif opcionMenu=="5":
+        print("aca vamos a cerrar")
+        break
+    else:
+       print("ingresastes una opcion invalida")
+```
+
+## Code Breakdown
+
+### Section 1: Initial Data Structure
+
+```python
+coders=[
+    {
+        "nombre":"Javier",
+        "edad":25,
+        "riwipoints":4
+    },
+    # ... more coders
+]
+```
+
+<Info>
+  **Data Structure**: A list of dictionaries. Each dictionary represents a coder with three properties: nombre (name), edad (age), and riwipoints (points). This structure allows easy access to individual properties while keeping related data together.
+</Info>
+
+### Section 2: Main Menu Loop
+
+```python
+while True:
+    print("""
+    MENU
+    (1) registrar un nuevo coder
+    (2) actualizar coder
+    (3) eliminar coder
+    (4) listar coders
+    (5) cerrar programa
+    """)
+    opcionMenu=input("INGRESA LA OPCION=>")
+```
+
+<Accordion title="Why while True?">
+  The `while True` loop creates an infinite loop that keeps the program running until the user explicitly chooses to exit (option 5). This pattern is common in menu-driven applications where you want continuous interaction until the user decides to quit.
+</Accordion>
+
+### Section 3: CREATE Operation
+
+```python
+if opcionMenu=="1":
+    nombre=input("ingresa el nombre del coder=>")
+    edad=int(input("ingresa la edad del coder=>"))
+    riwipoints=int(input("ingresa los riwipoints del coder=>"))
+
+    nuevoCoder={
+        "nombre":nombre,
+        "edad":edad,
+        "riwipoints":riwipoints
+    }
+
+    coders.append(nuevoCoder)
+```
+
+<Steps>
+  <Step title="Collect Input">
+    Gather all necessary information from the user
+  </Step>
+  
+  <Step title="Create Dictionary">
+    Build a new dictionary object with the collected data
+  </Step>
+  
+  <Step title="Add to List">
+    Use `.append()` to add the new coder to the end of the list
+  </Step>
+</Steps>
+
+### Section 4: UPDATE Operation
+
+```python
+elif opcionMenu=="2":
+    indice=0
+    for coder in coders:
+        print(f"""
+            id=[{indice}]
+            Nombre={coder["nombre"]}
+            Edad={coder["edad"]}
+            Riwipoints={coder["riwipoints"]}
+            """)
+        indice+=1
+
+    coderParaActualizar=int(input("ingresa el id del coder que quieres actualizar=>"))
+    nuevoNombre=input("ingresa el nuevo nombre del coder=>")
+    nuevaEdad=int(input("ingresa la nueva edad del coder=>"))
+    nuevosRiwipoints=int(input("ingresa los nuevos riwipoints del coder=>"))
+
+    coders[coderParaActualizar]["nombre"]=nuevoNombre
+    coders[coderParaActualizar]["edad"]=nuevaEdad
+    coders[coderParaActualizar]["riwipoints"]=nuevosRiwipoints
+```
+
+<Note>
+  **Index Tracking**: The `indice` variable manually tracks the position of each coder. This allows users to reference coders by a numeric ID. The update uses bracket notation to modify dictionary values directly.
+</Note>
+
+### Section 5: DELETE Operation
+
+```python
+elif opcionMenu=="3":
+    indice=0
+    for coder in coders:
+        print(f"id=[{indice}] - {coder["nombre"]}")
+        indice+=1
+
+    coderAeliminar=int(input("ingrese el ID del coder que quiere eliminar"))
+    del coders[coderAeliminar]
+```
+
+<Info>
+  The `del` statement removes an element from the list at the specified index. After deletion, all subsequent elements shift down one position.
+</Info>
+
+### Section 6: READ Operation
+
+```python
+elif opcionMenu=="4":
+    print("lista de coders")
+    for coder in coders:
+        print(f"""
+            NOMBRE CODER= {coder["nombre"]}
+            EDAD= {coder["edad"]}
+            RIWIPOINTS= {coder["riwipoints"]}
+            """)
+```
+
+This simple loop iterates through all coders and displays their information in a formatted way.
+
+### Section 7: Exit and Error Handling
+
+```python
+elif opcionMenu=="5":
+    print("aca vamos a cerrar")
+    break
+else:
+   print("ingresastes una opcion invalida")
+```
+
+The `break` statement exits the while loop, ending the program. The `else` clause catches any invalid menu options.
+
+## How to Run
+
+<Steps>
+  <Step title="Save the File">
+    Save the code in a file named `crud_coders.py`
+  </Step>
+  
+  <Step title="Run the Program">
+    Execute from your terminal:
+    ```bash
+    python crud_coders.py
+    ```
+  </Step>
+  
+  <Step title="Interact with the Menu">
+    - Choose option 1 to add a new coder
+    - Choose option 2 to update an existing coder
+    - Choose option 3 to delete a coder
+    - Choose option 4 to view all coders
+    - Choose option 5 to exit
+  </Step>
+</Steps>
+
+## Example Usage
+
+```
+MENU
+(1) registrar un nuevo coder
+(2) actualizar coder
+(3) eliminar coder
+(4) listar coders
+(5) cerrar programa
+
+INGRESA LA OPCION=>1
+ingresa el nombre del coder=>Maria
+ingresa la edad del coder=>28
+ingresa los riwipoints del coder=>7
+
+MENU
+(1) registrar un nuevo coder
+(2) actualizar coder
+(3) eliminar coder
+(4) listar coders
+(5) cerrar programa
+
+INGRESA LA OPCION=>4
+lista de coders
+
+NOMBRE CODER= Javier
+EDAD= 25
+RIWIPOINTS= 4
+
+NOMBRE CODER= lucas
+EDAD= 18
+RIWIPOINTS= 8
+
+... [more coders]
+
+NOMBRE CODER= Maria
+EDAD= 28
+RIWIPOINTS= 7
+```
+
+## Enhancement Ideas
+
+<Accordion title="Ways to Improve This Program">
+  1. **Data Persistence**: Save data to a JSON file so it persists between program runs
+  2. **Search Functionality**: Add a search feature to find coders by name or other criteria
+  3. **Input Validation**: Prevent negative ages or invalid riwipoints values
+  4. **Sorting**: Add options to sort coders by name, age, or points
+  5. **Confirmation Dialogs**: Ask for confirmation before deleting records
+  6. **Unique IDs**: Use UUID or auto-increment IDs instead of list indices
+  7. **Error Handling**: Use try-except blocks to handle IndexError when accessing invalid indices
+</Accordion>
+
+## Common Issues and Solutions
+
+<Accordion title="IndexError: list index out of range">
+  **Problem**: User enters an ID that doesn't exist.
+  
+  **Solution**: Validate the index before accessing:
+  ```python
+  if 0 <= coderParaActualizar < len(coders):
+      # perform update
+  else:
+      print("ID invalido")
+  ```
+</Accordion>
+
+<Accordion title="ValueError: invalid literal for int()">
+  **Problem**: User enters non-numeric input for age or riwipoints.
+  
+  **Solution**: Add try-except blocks:
+  ```python
+  try:
+      edad = int(input("ingresa la edad del coder=>"))
+  except ValueError:
+      print("Por favor ingresa un número válido")
+  ```
+</Accordion>
+
+## Key Takeaways
+
+- Lists of dictionaries are excellent for managing collections of structured data
+- CRUD operations form the foundation of most data management systems
+- Menu-driven programs use while loops and conditional statements for user interaction
+- Index tracking allows users to reference specific records by ID
+- The `del` statement removes elements from lists
+- Dictionary keys can be accessed and modified using bracket notation
+- Breaking down complex operations into clear steps improves code readability

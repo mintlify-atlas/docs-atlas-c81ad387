@@ -1,0 +1,225 @@
+---
+title: 'BMI Calculator'
+description: 'Create a Body Mass Index calculator that categorizes health status based on weight and height'
+---
+
+## Overview
+
+This exercise builds a BMI (Body Mass Index) calculator that takes user input for name, weight, and height, calculates their BMI, and provides health categorization based on standard BMI ranges.
+
+<Note>
+  **Difficulty Level**: Basic
+  
+  **Concepts Covered**: User input, type conversion, mathematical operations, conditional logic, string formatting
+</Note>
+
+## What You'll Learn
+
+<Steps>
+  <Step title="Data Type Conversion">
+    Convert string input to numeric types (`float`) for mathematical calculations
+  </Step>
+  
+  <Step title="Mathematical Calculations">
+    Perform the BMI formula calculation and round results for display
+  </Step>
+  
+  <Step title="Complex Conditionals">
+    Use multiple if-elif statements to categorize BMI into health ranges
+  </Step>
+  
+  <Step title="String Methods">
+    Apply `.title()` and `.strip()` for clean user input formatting
+  </Step>
+</Steps>
+
+## Complete Code
+
+Here's the full BMI calculator implementation:
+
+```python
+print()
+print("="*46)
+print("||Calculador de IMC(indice de masa muscular)||")
+print("="*46)
+
+nombre = input("Nombre por favor =>").title().strip()
+peso = float(input("Peso en kg (Ejm:74)=>"))
+estatura = round(float(input("Estatura en m (Ejm:1.80) => ")), 2)
+
+IMC = peso/(estatura*estatura)
+IMC = round(IMC, 2)
+print()
+if IMC < 18.5:
+    print(f"{nombre} tu indice de mas muscular es de {IMC} por lo tanto estas 'bajo de peso'")
+elif IMC >= 18.5 and IMC <= 24.9:
+    print(f"{nombre} tu indice de mas muscular es de {IMC} por lo tanto estas 'normal'")
+elif IMC >= 25 and IMC <= 29.9:
+    print(f"{nombre} tu indice de mas muscular es de {IMC} por lo tanto estas con 'sobrepeso'")
+elif IMC >= 30 and IMC <= 34.9:
+    print(f"{nombre} IMC(indice de mas muscular es de {IMC} por lo tanto estas con 'obesidad I'")
+elif IMC >= 35 and IMC <= 39.9:
+    print(f"{nombre} IMC(indice de mas muscular es de {IMC} por lo tanto estas con 'obesidad II'")
+elif IMC >= 40 and IMC <= 49.9:
+    print(f"{nombre} IMC(indice de mas muscular es de {IMC} por lo tanto estas con 'obesidad III'")
+elif IMC >= 50:
+    print(f"{nombre} IMC(indice de mas muscular es de {IMC} por lo tanto estas con 'obesidad IV'")
+```
+
+## Code Breakdown
+
+### Section 1: Welcome Header
+
+```python
+print()
+print("="*46)
+print("||Calculador de IMC(indice de masa muscular)||")
+print("="*46)
+```
+
+<Info>
+  String multiplication (`"="*46`) creates a decorative border by repeating the character 46 times. This creates a visually appealing header for the program.
+</Info>
+
+### Section 2: User Input Collection
+
+```python
+nombre = input("Nombre por favor =>").title().strip()
+peso = float(input("Peso en kg (Ejm:74)=>"))
+estatura = round(float(input("Estatura en m (Ejm:1.80) => ")), 2)
+```
+
+<Accordion title="Input Processing Methods">
+  - **`.title()`**: Capitalizes the first letter of each word ("john doe" → "John Doe")
+  - **`.strip()`**: Removes leading and trailing whitespace
+  - **`float()`**: Converts string input to a floating-point number for decimal values
+  - **`round(x, 2)`**: Rounds the number to 2 decimal places
+</Accordion>
+
+### Section 3: BMI Calculation
+
+```python
+IMC = peso/(estatura*estatura)
+IMC = round(IMC, 2)
+```
+
+The BMI formula is: **BMI = weight (kg) / height² (m²)**
+
+<Note>
+  **Why round?** Rounding to 2 decimal places makes the output cleaner and easier to read. Without rounding, you might get values like 23.456789012.
+</Note>
+
+### Section 4: BMI Categorization
+
+```python
+if IMC < 18.5:
+    print(f"{nombre} tu indice de mas muscular es de {IMC} por lo tanto estas 'bajo de peso'")
+elif IMC >= 18.5 and IMC <= 24.9:
+    print(f"{nombre} tu indice de mas muscular es de {IMC} por lo tanto estas 'normal'")
+elif IMC >= 25 and IMC <= 29.9:
+    print(f"{nombre} tu indice de mas muscular es de {IMC} por lo tanto estas con 'sobrepeso'")
+elif IMC >= 30 and IMC <= 34.9:
+    print(f"{nombre} IMC(indice de mas muscular es de {IMC} por lo tanto estas con 'obesidad I'")
+elif IMC >= 35 and IMC <= 39.9:
+    print(f"{nombre} IMC(indice de mas muscular es de {IMC} por lo tanto estas con 'obesidad II'")
+elif IMC >= 40 and IMC <= 49.9:
+    print(f"{nombre} IMC(indice de mas muscular es de {IMC} por lo tanto estas con 'obesidad III'")
+elif IMC >= 50:
+    print(f"{nombre} IMC(indice de mas muscular es de {IMC} por lo tanto estas con 'obesidad IV'")
+```
+
+## BMI Categories Reference
+
+| BMI Range | Category |
+|-----------|----------|
+| < 18.5 | Underweight (Bajo de peso) |
+| 18.5 - 24.9 | Normal weight (Normal) |
+| 25.0 - 29.9 | Overweight (Sobrepeso) |
+| 30.0 - 34.9 | Obesity Class I |
+| 35.0 - 39.9 | Obesity Class II |
+| 40.0 - 49.9 | Obesity Class III |
+| ≥ 50.0 | Obesity Class IV |
+
+<Info>
+  These categories follow the World Health Organization (WHO) BMI classification standards.
+</Info>
+
+## How to Run
+
+<Steps>
+  <Step title="Save the File">
+    Save the code in a file named `bmi_calculator.py`
+  </Step>
+  
+  <Step title="Run the Program">
+    Execute from your terminal:
+    ```bash
+    python bmi_calculator.py
+    ```
+  </Step>
+  
+  <Step title="Enter Your Data">
+    - Enter your name
+    - Enter your weight in kilograms
+    - Enter your height in meters
+    - View your BMI result and category
+  </Step>
+</Steps>
+
+## Example Usage
+
+```
+==============================================
+||Calculador de IMC(indice de masa muscular)||
+==============================================
+Nombre por favor =>juan perez
+Peso en kg (Ejm:74)=>70
+Estatura en m (Ejm:1.80) => 1.75
+
+Juan Perez tu indice de mas muscular es de 22.86 por lo tanto estas 'normal'
+```
+
+## Enhancement Ideas
+
+<Accordion title="Ways to Improve This Program">
+  1. **Input Validation**: Check for negative or zero values for weight and height
+  2. **Unit Conversion**: Allow users to input weight in pounds and height in feet/inches
+  3. **Age and Gender Factors**: Provide age-adjusted or gender-specific recommendations
+  4. **History Tracking**: Store previous BMI calculations to track changes over time
+  5. **Visual Display**: Add ASCII charts or progress bars to visualize the BMI range
+  6. **Health Recommendations**: Provide specific health tips based on the category
+</Accordion>
+
+## Common Issues and Solutions
+
+<Accordion title="ValueError: could not convert string to float">
+  **Problem**: User enters non-numeric characters for weight or height.
+  
+  **Solution**: Add try-except blocks to handle invalid input:
+  ```python
+  try:
+      peso = float(input("Peso en kg (Ejm:74)=>"))
+  except ValueError:
+      print("Por favor ingresa un número válido")
+  ```
+</Accordion>
+
+<Accordion title="ZeroDivisionError">
+  **Problem**: User enters 0 for height.
+  
+  **Solution**: Validate height before calculation:
+  ```python
+  if estatura <= 0:
+      print("La estatura debe ser mayor a 0")
+      exit()
+  ```
+</Accordion>
+
+## Key Takeaways
+
+- Type conversion with `float()` is essential for mathematical operations on user input
+- The `round()` function improves output readability
+- Chained if-elif statements effectively categorize numeric ranges
+- String methods like `.title()` and `.strip()` clean user input
+- Clear output messages improve user experience
+- BMI calculation demonstrates real-world application of basic Python concepts

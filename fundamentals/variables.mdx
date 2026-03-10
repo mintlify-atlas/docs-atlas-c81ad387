@@ -1,0 +1,115 @@
+---
+title: Variables in Python
+description: Learn about variable types in Python including integers, floats, strings, and booleans
+---
+
+## Introduction to Variables
+
+Variables in Python are containers for storing data values. Unlike some other programming languages, Python doesn't require explicit declaration of variable types - the type is automatically determined based on the value assigned.
+
+## Variable Types
+
+Python supports several fundamental data types:
+
+### Integer (INT)
+Stores whole numbers without decimal points.
+
+```python
+variable_de_tipo_entero = 10
+print(f"Variable de tipo entero: {variable_de_tipo_entero}")
+print(type(variable_de_tipo_entero))  # <class 'int'>
+```
+
+<Info>
+Integers can be positive, negative, or zero. Examples: `100`, `260`, `-50`, `0`
+</Info>
+
+### Float (FLOAT)
+Stores numbers with decimal points (real numbers).
+
+```python
+variable_de_tipo_real = 54.8
+print(f"Variable de tipo real: {variable_de_tipo_real}")
+print(type(variable_de_tipo_real))  # <class 'float'>
+```
+
+<Note>
+Floats can represent both whole numbers and decimals. Examples: `1.24`, `2.0`, `5.7`, `3.14159`
+</Note>
+
+### String (STRING)
+Stores text and character sequences.
+
+```python
+variable_de_tipo_caracteres = "Un saludo muy especial a todos los coders"
+print(f"Variable de tipo caracteres: {variable_de_tipo_caracteres}")
+print(type(variable_de_tipo_caracteres))  # <class 'str'>
+```
+
+<Tip>
+Strings can be enclosed in single quotes (`'text'`) or double quotes (`"text"`). Both are valid in Python.
+</Tip>
+
+### Boolean (BOOL)
+Stores logical values - either `True` or `False`.
+
+```python
+variable_de_tipo_booleano = True
+print(f"Variable de tipo booleano: {variable_de_tipo_booleano}")
+print(type(variable_de_tipo_booleano))  # <class 'bool'>
+```
+
+<Info>
+Booleans are commonly used in conditional statements and logical operations. Only two values are possible: `True` or `False`.
+</Info>
+
+## Complete Example
+
+Here's a complete example demonstrating all variable types:
+
+```python
+# Declare variables of different types
+variable_de_tipo_entero = 10
+variable_de_tipo_real = 54.8
+variable_de_tipo_caracteres = "Un saludo muy especial a todos los coders"
+variable_de_tipo_booleano = True
+
+# Display variables and their types
+print(f"Variable de tipo entero: {variable_de_tipo_entero}")
+print(f"Variable de tipo real: {variable_de_tipo_real}")
+print(f"Variable de tipo caracteres: {variable_de_tipo_caracteres}")
+print(f"Variable de tipo booleano: {variable_de_tipo_booleano}")
+```
+
+## Variable Naming Conventions
+
+<Note>
+Python variable names should:
+- Start with a letter or underscore
+- Contain only letters, numbers, and underscores
+- Be descriptive and use snake_case for multi-word names
+- Avoid Python reserved keywords
+</Note>
+
+## Type Checking
+
+You can check the type of any variable using the `type()` function:
+
+```python
+variable1 = 100
+variable2 = 3.14
+variable3 = "Hello"
+variable4 = False
+
+print(type(variable1))  # <class 'int'>
+print(type(variable2))  # <class 'float'>
+print(type(variable3))  # <class 'str'>
+print(type(variable4))  # <class 'bool'>
+```
+
+## Key Takeaways
+
+- **INT**: Whole numbers only (e.g., `100`, `260`)
+- **FLOAT**: Numbers with decimals (e.g., `1.24`, `5.7`)
+- **STRING**: Text values (e.g., `'Juan'`, `'Compras'`)
+- **BOOL**: Logical values (`True` or `False`)

@@ -1,0 +1,492 @@
+---
+title: 'Veterinary Management System'
+description: 'Build a patient management system for a veterinary clinic with status tracking and filtering capabilities'
+---
+
+## Overview
+
+This exercise creates a veterinary clinic management system that handles patient registration, updates, and specialized listing based on patient status. It demonstrates working with dictionaries, boolean states, and filtered data queries.
+
+<Note>
+  **Difficulty Level**: Intermediate
+  
+  **Concepts Covered**: Dictionaries, boolean states, filtered queries, conditional logic, menu systems, data filtering
+</Note>
+
+## What You'll Learn
+
+<Steps>
+  <Step title="Boolean State Management">
+    Use boolean values to track patient status (active/inactive)
+  </Step>
+  
+  <Step title="Filtered Data Queries">
+    Implement different views of data based on boolean conditions
+  </Step>
+  
+  <Step title="Dictionary Management">
+    Work with complex dictionary structures for patient records
+  </Step>
+  
+  <Step title="Owner Tracking">
+    Link patients to owners using identification numbers
+  </Step>
+</Steps>
+
+## Complete Code
+
+Here's the full veterinary management system:
+
+```python
+pacientes=[
+    {
+        "nombre":"kronos",
+        "raza":"criollo",
+        "edad":2,
+        "identificacionDueño":"3935353",
+        "estado":False
+    },
+    {
+        "nombre":"lucas",
+        "raza":"criollo",
+        "edad":2,
+        "identificacionDueño":"3935353",
+        "estado":True
+    },
+    {
+        "nombre":"mateo",
+        "raza":"criollo",
+        "edad":2,
+        "identificacionDueño":"3935353",
+        "estado":False
+    },
+]
+
+while True:
+    print("Veterinaria Daly")
+    print("""
+MENU
+(1) registrar un nuevo paciente
+
+(2) actualizar un  paciente
+
+(3) listar pacientes activos
+
+(4) listar pacientes inactivos
+        
+(5) listar todos los pacientes
+
+(6) cerrar programa
+    """)
+
+    opcionMenu=input("INGRESA LA OPCION=>")
+    if opcionMenu=="1":
+        nombre=input("ingresa el nombre del paciente=>")
+        raza=int(input("ingresa la raza del paciente=>"))
+        edad=int(input("ingresa la edad del paciente=>"))
+        identificacion=int(input("ingresa el # de identificacion del dueño del paciente=>"))
+        estado=int(input("ingresa el estado del paciente, 'True' si esta en la vetarinaria o 'False' si ya salio de la veterinaria"))
+
+        nuevoPaciente={
+            "nombre":nombre,
+            "raza":raza,
+            "edad":2,
+            "identificacionDueño":identificacion,
+            "estado":False
+        },
+
+        pacientes.append(nuevoPaciente)
+    elif opcionMenu=="2":
+        indice=0
+        print("PACIENTES")
+        for paciente in pacientes: 
+            #mostrar informacion de pacientes
+            print(f"""
+                id=[{indice}]
+                Nombre={paciente["nombre"]}
+                Raza={paciente["raza"]}
+                Edad={paciente["edad"]}
+                Identificacion Dueño={paciente["identificacionDueño"]}
+                Estado={paciente["estado"]}
+                """)
+            indice+=1
+
+        #pedimos los nuevos datos   
+        pacienteParaActualizar=int(input("ingresa el id del paciente que quieres actualizar=>"))
+        nuevoNombre=input("ingresa el nombre del paciente=>")
+        nuevaRaza=int(input("ingresa la raza del paciente=>"))
+        nuevaEdad=int(input("ingresa la edad del paciente=>"))
+        nuevaIdentificacion=int(input("ingresa el # de identificacion del dueño del paciente=>"))
+        nuevoEstado=int(input("ingresa el estado del paciente, 'True' si esta en la vetarinaria o 'False' si ya salio de la veterinaria"))
+
+        #actualizar los nuevos datos
+        pacientes[pacienteParaActualizar]["nombre"]=nuevoNombre
+        pacientes[pacienteParaActualizar]["raza"]=nuevaRaza
+        pacientes[pacienteParaActualizar]["edad"]=nuevaEdad
+        pacientes[pacienteParaActualizar]["identificacionDueño"]=nuevaIdentificacion
+        pacientes[pacienteParaActualizar]["estado"]=nuevoEstado
+    elif opcionMenu=="3":
+        indice=0
+        print("PACIENTES ACTIVOS")
+        for paciente in pacientes:
+            if paciente["estado"]==True:
+                print(f"""
+                    id=[{indice}]
+                    Nombre={paciente["nombre"]}
+                    Raza={paciente["raza"]}
+                    Edad={paciente["edad"]}
+                    Identificacion Dueño={paciente["identificacionDueño"]}
+                    Estado={paciente["estado"]}
+                    """)
+                indice+=1
+    elif opcionMenu=="4":
+            indice=0
+            print("PACIENTES INACTIVOS")
+            for paciente in pacientes:
+                if paciente["estado"]==False:
+                    print(f"""
+                        id=[{indice}]
+                        Nombre={paciente["nombre"]}
+                        Raza={paciente["raza"]}
+                        Edad={paciente["edad"]}
+                        Identificacion Dueño={paciente["identificacionDueño"]}
+                        Estado={paciente["estado"]}
+                        """)
+                    indice+=1
+    elif opcionMenu=="5":
+        indice=0
+        print("PACIENTES")
+        for paciente in pacientes:
+            if paciente["estado"]==False:
+                print(f"""
+                    id=[{indice}]
+                    Nombre={paciente["nombre"]}
+                    Raza={paciente["raza"]}
+                    Edad={paciente["edad"]}
+                    Identificacion Dueño={paciente["identificacionDueño"]}
+                    Estado={paciente["estado"]}
+                    """)
+                indice+=1
+    elif opcionMenu=="6":
+        print("adios")
+        break
+    else:
+       print("ingresastes una opcion invalida")
+```
+
+## Code Breakdown
+
+### Section 1: Patient Data Structure
+
+```python
+pacientes=[
+    {
+        "nombre":"kronos",
+        "raza":"criollo",
+        "edad":2,
+        "identificacionDueño":"3935353",
+        "estado":False
+    },
+    # ... more patients
+]
+```
+
+<Info>
+  **Patient Record Structure**:
+  - `nombre`: Pet's name
+  - `raza`: Breed/race
+  - `edad`: Age in years
+  - `identificacionDueño`: Owner's identification number
+  - `estado`: Boolean indicating if patient is currently at the clinic (True) or discharged (False)
+</Info>
+
+### Section 2: Register New Patient (Option 1)
+
+```python
+if opcionMenu=="1":
+    nombre=input("ingresa el nombre del paciente=>")
+    raza=int(input("ingresa la raza del paciente=>"))
+    edad=int(input("ingresa la edad del paciente=>"))
+    identificacion=int(input("ingresa el # de identificacion del dueño del paciente=>"))
+    estado=int(input("ingresa el estado del paciente, 'True' si esta en la vetarinaria o 'False' si ya salio de la veterinaria"))
+
+    nuevoPaciente={
+        "nombre":nombre,
+        "raza":raza,
+        "edad":2,
+        "identificacionDueño":identificacion,
+        "estado":False
+    },
+
+    pacientes.append(nuevoPaciente)
+```
+
+<Accordion title="Issues in This Code">
+  **Bug 1**: The user inputs `raza` as an integer, but it should be a string (breed name).
+  
+  **Bug 2**: The user inputs `edad` but it's hardcoded to 2 in the dictionary.
+  
+  **Bug 3**: The user inputs `estado` but it's hardcoded to False in the dictionary.
+  
+  **Bug 4**: There's a trailing comma after the dictionary, making `nuevoPaciente` a tuple instead of a dict.
+  
+  **Corrected version**:
+  ```python
+  nombre=input("ingresa el nombre del paciente=>")
+  raza=input("ingresa la raza del paciente=>")  # Should be string
+  edad=int(input("ingresa la edad del paciente=>"))
+  identificacion=input("ingresa el # de identificacion del dueño del paciente=>")  # Should be string
+  estado_input=input("ingresa el estado del paciente (True/False)=>")
+  estado = True if estado_input.lower() == 'true' else False
+
+  nuevoPaciente={
+      "nombre":nombre,
+      "raza":raza,
+      "edad":edad,  # Use input value
+      "identificacionDueño":identificacion,
+      "estado":estado  # Use input value
+  }  # No trailing comma
+
+  pacientes.append(nuevoPaciente)
+  ```
+</Accordion>
+
+### Section 3: Update Patient (Option 2)
+
+```python
+elif opcionMenu=="2":
+    indice=0
+    print("PACIENTES")
+    for paciente in pacientes: 
+        print(f"""
+            id=[{indice}]
+            Nombre={paciente["nombre"]}
+            Raza={paciente["raza"]}
+            Edad={paciente["edad"]}
+            Identificacion Dueño={paciente["identificacionDueño"]}
+            Estado={paciente["estado"]}
+            """)
+        indice+=1
+
+    pacienteParaActualizar=int(input("ingresa el id del paciente que quieres actualizar=>"))
+    nuevoNombre=input("ingresa el nombre del paciente=>")
+    nuevaRaza=int(input("ingresa la raza del paciente=>"))
+    nuevaEdad=int(input("ingresa la edad del paciente=>"))
+    nuevaIdentificacion=int(input("ingresa el # de identificacion del dueño del paciente=>"))
+    nuevoEstado=int(input("ingresa el estado del paciente, 'True' si esta en la vetarinaria o 'False' si ya salio de la veterinaria"))
+
+    pacientes[pacienteParaActualizar]["nombre"]=nuevoNombre
+    pacientes[pacienteParaActualizar]["raza"]=nuevaRaza
+    pacientes[pacienteParaActualizar]["edad"]=nuevaEdad
+    pacientes[pacienteParaActualizar]["identificacionDueño"]=nuevaIdentificacion
+    pacientes[pacienteParaActualizar]["estado"]=nuevoEstado
+```
+
+This section displays all patients with their IDs, then allows updating all fields for a selected patient.
+
+### Section 4: List Active Patients (Option 3)
+
+```python
+elif opcionMenu=="3":
+    indice=0
+    print("PACIENTES ACTIVOS")
+    for paciente in pacientes:
+        if paciente["estado"]==True:
+            print(f"""
+                id=[{indice}]
+                Nombre={paciente["nombre"]}
+                Raza={paciente["raza"]}
+                Edad={paciente["edad"]}
+                Identificacion Dueño={paciente["identificacionDueño"]}
+                Estado={paciente["estado"]}
+                """)
+            indice+=1
+```
+
+<Note>
+  **Filtered Query**: This option filters patients by checking `if paciente["estado"]==True`. Only patients currently at the clinic (active) are displayed.
+</Note>
+
+### Section 5: List Inactive Patients (Option 4)
+
+```python
+elif opcionMenu=="4":
+    indice=0
+    print("PACIENTES INACTIVOS")
+    for paciente in pacientes:
+        if paciente["estado"]==False:
+            print(f"""
+                id=[{indice}]
+                Nombre={paciente["nombre"]}
+                Raza={paciente["raza"]}
+                Edad={paciente["edad"]}
+                Identificacion Dueño={paciente["identificacionDueño"]}
+                Estado={paciente["estado"]}
+                """)
+            indice+=1
+```
+
+This shows only patients who have been discharged (inactive).
+
+### Section 6: List All Patients (Option 5)
+
+```python
+elif opcionMenu=="5":
+    indice=0
+    print("PACIENTES")
+    for paciente in pacientes:
+        if paciente["estado"]==False:  # Bug: Should show ALL patients
+            print(f"""
+                id=[{indice}]
+                Nombre={paciente["nombre"]}
+                Raza={paciente["raza"]}
+                Edad={paciente["edad"]}
+                Identificacion Dueño={paciente["identificacionDueño"]}
+                Estado={paciente["estado"]}
+                """)
+            indice+=1
+```
+
+<Accordion title="Bug in Option 5">
+  **Issue**: Option 5 should list ALL patients, but it has the same condition as option 4 (only False states).
+  
+  **Fix**: Remove the if condition:
+  ```python
+  elif opcionMenu=="5":
+      indice=0
+      print("TODOS LOS PACIENTES")
+      for paciente in pacientes:
+          print(f"""
+              id=[{indice}]
+              Nombre={paciente["nombre"]}
+              Raza={paciente["raza"]}
+              Edad={paciente["edad"]}
+              Identificacion Dueño={paciente["identificacionDueño"]}
+              Estado={paciente["estado"]}
+              """)
+          indice+=1
+  ```
+</Accordion>
+
+## How to Run
+
+<Steps>
+  <Step title="Save the File">
+    Save the code in a file named `veterinary_system.py`
+  </Step>
+  
+  <Step title="Run the Program">
+    Execute from your terminal:
+    ```bash
+    python veterinary_system.py
+    ```
+  </Step>
+  
+  <Step title="Use the Menu">
+    - Option 1: Register new patients
+    - Option 2: Update patient information
+    - Option 3: View patients currently at the clinic
+    - Option 4: View discharged patients
+    - Option 5: View all patients (has a bug)
+    - Option 6: Exit the program
+  </Step>
+</Steps>
+
+## Example Usage
+
+```
+Veterinaria Daly
+
+MENU
+(1) registrar un nuevo paciente
+(2) actualizar un  paciente
+(3) listar pacientes activos
+(4) listar pacientes inactivos
+(5) listar todos los pacientes
+(6) cerrar programa
+
+INGRESA LA OPCION=>3
+PACIENTES ACTIVOS
+
+    id=[0]
+    Nombre=lucas
+    Raza=criollo
+    Edad=2
+    Identificacion Dueño=3935353
+    Estado=True
+
+INGRESA LA OPCION=>4
+PACIENTES INACTIVOS
+
+    id=[0]
+    Nombre=kronos
+    Raza=criollo
+    Edad=2
+    Identificacion Dueño=3935353
+    Estado=False
+
+    id=[1]
+    Nombre=mateo
+    Raza=criollo
+    Edad=2
+    Identificacion Dueño=3935353
+    Estado=False
+```
+
+## Enhancement Ideas
+
+<Accordion title="Ways to Improve This Program">
+  1. **Medical History**: Add a list of treatments and visits for each patient
+  2. **Appointment Scheduling**: Add date/time fields for scheduled appointments
+  3. **Multiple Owners**: Support multiple pets per owner with owner management
+  4. **Search Functionality**: Search patients by name or owner ID
+  5. **Breed Database**: Validate breeds against a predefined list
+  6. **Species Field**: Add species (dog, cat, bird, etc.) alongside breed
+  7. **Weight Tracking**: Monitor pet weight over time
+  8. **Vaccination Records**: Track vaccination history and due dates
+  9. **Billing Integration**: Link to billing system for services
+  10. **Export Reports**: Generate reports on active patients, appointments, etc.
+</Accordion>
+
+## Common Issues and Solutions
+
+<Accordion title="Type Conversion Issues">
+  **Problem**: The code treats `raza` as integer when it should be string.
+  
+  **Solution**: Change input collection:
+  ```python
+  raza = input("ingresa la raza del paciente=>")  # Remove int()
+  ```
+</Accordion>
+
+<Accordion title="Index Tracking Bug in Filtered Lists">
+  **Problem**: When listing active/inactive patients, the index continues from previous iterations, which may not match the actual list index.
+  
+  **Better Approach**: Use enumerate or track actual list indices:
+  ```python
+  for idx, paciente in enumerate(pacientes):
+      if paciente["estado"]==True:
+          print(f"id=[{idx}]...")
+  ```
+</Accordion>
+
+## Real-World Applications
+
+<Info>
+  This veterinary system demonstrates concepts used in real clinic management software:
+  - **Patient Records**: Similar to human medical records
+  - **Status Tracking**: Active/inactive states common in many systems
+  - **Filtered Queries**: Essential for finding specific subsets of data
+  - **Owner Linking**: Demonstrates foreign key concept from databases
+</Info>
+
+## Key Takeaways
+
+- Boolean fields enable status tracking and filtered queries
+- Conditional filtering (`if estado==True`) creates different data views
+- Dictionary structures effectively represent entity records
+- Type consistency is important (don't convert strings to int unnecessarily)
+- Index tracking in filtered loops requires careful management
+- Menu options should clearly indicate what data subset they display
+- Data validation prevents invalid states (e.g., negative ages)
+- Owner identification creates relationships between entities

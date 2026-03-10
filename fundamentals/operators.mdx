@@ -1,0 +1,249 @@
+---
+title: Operators in Python
+description: Master arithmetic, comparison, and assignment operators in Python with practical examples
+---
+
+## Introduction to Operators
+
+Operators are special symbols in Python that perform operations on values and variables. Python supports various types of operators including arithmetic, comparison, and assignment operators.
+
+## Arithmetic Operators
+
+Arithmetic operators perform mathematical calculations on numeric values.
+
+### Basic Arithmetic Operations
+
+```python
+numeroA = 4
+numeroB = 2
+
+# Addition (+)
+print(numeroA + numeroB)  # 6
+
+# Subtraction (-)
+print(numeroA - numeroB)  # 2
+
+# Multiplication (*)
+print(numeroA * numeroB)  # 8
+
+# Division (/)
+print(numeroA / numeroB)  # 2.0
+```
+
+<Info>
+Division (`/`) always returns a float, even when dividing evenly. Use `//` for integer division.
+</Info>
+
+### Advanced Arithmetic Operations
+
+```python
+# Modulo - returns remainder of division (%)
+print(13 % 5)  # 3
+
+# Exponentiation - raises to power (**)
+print(2 ** 8)  # 256
+```
+
+### Arithmetic Operators Summary
+
+| Operator | Name | Example | Result |
+|----------|------|---------|--------|
+| `+` | Addition | `4 + 2` | 6 |
+| `-` | Subtraction | `4 - 2` | 2 |
+| `*` | Multiplication | `4 * 2` | 8 |
+| `/` | Division | `4 / 2` | 2.0 |
+| `%` | Modulo | `13 % 5` | 3 |
+| `**` | Exponentiation | `2 ** 8` | 256 |
+| `//` | Floor Division | `7 // 2` | 3 |
+
+## Assignment Operators
+
+Assignment operators are used to assign and modify variable values.
+
+### Increment Operations
+
+```python
+# Increment by one
+numeroTemp1 = 2
+numeroTemp1 += 1
+print(numeroTemp1)  # 3
+
+# Increment by multiple units
+numeroTemp3 = 3
+numeroTemp3 += 5
+print(numeroTemp3)  # 8
+```
+
+### Decrement Operations
+
+```python
+# Decrement by one
+numeroTemp2 = 5
+numeroTemp2 -= 1
+print(numeroTemp2)  # 4
+
+# Decrement by multiple units
+numeroTemp4 = 13
+numeroTemp4 -= 4
+print(numeroTemp4)  # 9
+```
+
+<Tip>
+Python doesn't have `++` or `--` operators like other languages. Use `+= 1` and `-= 1` instead.
+</Tip>
+
+### Assignment Operators Summary
+
+| Operator | Example | Equivalent To |
+|----------|---------|---------------|
+| `=` | `x = 5` | `x = 5` |
+| `+=` | `x += 3` | `x = x + 3` |
+| `-=` | `x -= 3` | `x = x - 3` |
+| `*=` | `x *= 3` | `x = x * 3` |
+| `/=` | `x /= 3` | `x = x / 3` |
+| `%=` | `x %= 3` | `x = x % 3` |
+| `**=` | `x **= 3` | `x = x ** 3` |
+
+## Comparison Operators
+
+Comparison operators compare two values and return a boolean result (`True` or `False`).
+
+### Equality Comparison
+
+```python
+NUMERO1 = 20
+NUMERO2 = "20"
+NUMERO3 = 30
+
+# Equal to (==)
+print(10 == 10)  # True
+print(10 == 14)  # False
+print(2 == "2")   # False (different types)
+print(2 == int("2"))  # True
+print(NUMERO1 == int(NUMERO2))  # True
+print(NUMERO1 == NUMERO3)  # False
+```
+
+<Note>
+The equality operator (`==`) checks both value and type. `2 == "2"` is `False` because one is an integer and the other is a string.
+</Note>
+
+### Inequality Comparison
+
+```python
+# Not equal to (!=)
+print(10 != 10)  # False
+print(10 != 14)  # True
+print(2 != "2")  # True
+print(2 != int("2"))  # False
+
+PASSWORD = "Abc123"
+PASSWORD_CONFIRMATION = "ABC123"
+print(PASSWORD != PASSWORD_CONFIRMATION)  # True
+```
+
+### Greater Than and Less Than
+
+```python
+NUMERO1 = 20
+NUMERO3 = 30
+
+# Greater than (>)
+print(f"¿{NUMERO1} es mayor que {NUMERO3}? => {NUMERO1 > NUMERO3}")  # False
+
+# Less than (<)
+print(f"¿{NUMERO1} es menor que {NUMERO3}? => {NUMERO1 < NUMERO3}")  # True
+```
+
+### Greater/Less Than or Equal To
+
+```python
+# Greater than or equal to (>=)
+print(f"¿{NUMERO1} es mayor o igual que {NUMERO2}? => {NUMERO1 >= int(NUMERO2)}")  # True
+
+# Less than or equal to (<=)
+print(f"¿{NUMERO1} es menor o igual que {NUMERO3}? => {NUMERO1 <= NUMERO3}")  # True
+```
+
+### Comparison Operators Summary
+
+| Operator | Name | Example | Result |
+|----------|------|---------|--------|
+| `==` | Equal to | `10 == 10` | True |
+| `!=` | Not equal to | `10 != 14` | True |
+| `>` | Greater than | `20 > 30` | False |
+| `<` | Less than | `20 < 30` | True |
+| `>=` | Greater than or equal | `20 >= 20` | True |
+| `<=` | Less than or equal | `20 <= 30` | True |
+
+## Practical Examples
+
+### Example 1: Calculator Operations
+
+```python
+numeroA = 4
+numeroB = 2
+
+print(f"Suma: {numeroA + numeroB}")
+print(f"Resta: {numeroA - numeroB}")
+print(f"Multiplicación: {numeroA * numeroB}")
+print(f"División: {numeroA / numeroB}")
+print(f"Módulo: {numeroA % numeroB}")
+print(f"Potencia: {numeroA ** numeroB}")
+```
+
+### Example 2: Password Validation
+
+```python
+PASSWORD = "Abc123"
+PASSWORD_CONFIRMATION = "ABC123"
+
+if PASSWORD != PASSWORD_CONFIRMATION:
+    print("Las contraseñas no coinciden")
+else:
+    print("Las contraseñas coinciden")
+```
+
+### Example 3: Counter Updates
+
+```python
+# Initialize counter
+counter = 0
+
+# Increment counter
+counter += 1
+print(f"Counter after increment: {counter}")  # 1
+
+# Add multiple units
+counter += 5
+print(f"Counter after adding 5: {counter}")  # 6
+
+# Decrement counter
+counter -= 2
+print(f"Counter after decrement: {counter}")  # 4
+```
+
+## Type Checking with isinstance()
+
+You can check variable types using comparison with `isinstance()`:
+
+```python
+estatura = 4.0
+
+# Check if variable is float and meets condition
+print(estatura >= 1.71 and type(estatura) == float)  # True
+print(estatura >= 1.71 and isinstance(estatura, int))  # False
+```
+
+<Info>
+`isinstance()` is the preferred way to check types in Python. It's more flexible than `type()` as it considers inheritance.
+</Info>
+
+## Key Takeaways
+
+- **Arithmetic operators** perform mathematical calculations
+- **Assignment operators** modify variable values in place
+- **Comparison operators** return boolean values (`True` or `False`)
+- Python is type-sensitive in comparisons: `2 == "2"` is `False`
+- Use `+=` and `-=` for incrementing/decrementing (Python has no `++` or `--`)
+- Division (`/`) always returns a float, even for whole number results

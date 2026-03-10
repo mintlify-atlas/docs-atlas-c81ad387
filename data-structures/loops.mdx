@@ -1,0 +1,404 @@
+---
+title: "Loops"
+description: "Master Python loops with for and while statements. Learn iteration patterns, loop control, and practical examples for working with collections."
+---
+
+# Loops in Python
+
+Loops allow you to execute code repeatedly. Python provides two main loop types: `for` loops for iterating over sequences and `while` loops for conditional repetition.
+
+## For Loops
+
+The `for` loop iterates over sequences (lists, tuples, strings, ranges, etc.).
+
+### Basic For Loop
+
+```python
+# Iterate over a list
+frutas = ["manzana", "banana", "naranja"]
+for fruta in frutas:
+    print(fruta)
+
+# Output:
+# manzana
+# banana
+# naranja
+```
+
+### Using range()
+
+The `range()` function generates a sequence of numbers:
+
+```python
+# range(n) generates numbers from 0 to n-1
+for contador in range(5):
+    print(contador)
+# Output: 0, 1, 2, 3, 4
+```
+
+<AccordionGroup>
+<Accordion title="range() Variations">
+```python
+# range(start, stop)
+for i in range(2, 6):
+    print(i)  # 2, 3, 4, 5
+
+# range(start, stop, step)
+for i in range(0, 10, 2):
+    print(i)  # 0, 2, 4, 6, 8
+
+# Backwards
+for i in range(5, 0, -1):
+    print(i)  # 5, 4, 3, 2, 1
+```
+</Accordion>
+</AccordionGroup>
+
+### Practical Example: Building a List
+
+Here's a real example collecting user input:
+
+```python
+listaNumeros = []
+
+# Collect 5 numbers from user
+for numeroVuelta in range(5):
+    numero = int(input(f"ingrese un numero # {numeroVuelta}=>"))
+    listaNumeros.append(numero)
+    
+print(listaNumeros)
+```
+
+<Tip>
+Use f-strings (f"text {variable}") to include variables in strings - it's more readable than concatenation.
+</Tip>
+
+## While Loops
+
+The `while` loop continues as long as a condition is true:
+
+### Basic While Loop
+
+```python
+listaNumeros = []
+numeroVuelta = 0
+
+while numeroVuelta < 5:
+    numero = int(input(f"ingrese un numero # {numeroVuelta}=>"))
+    listaNumeros.append(numero)
+    numeroVuelta += 1  # Increment counter
+
+print(listaNumeros)
+```
+
+<Warning>
+Always ensure your while loop has a way to **exit** - otherwise it will run forever!
+</Warning>
+
+### While Loop with User Control
+
+```python
+listaEstudiantesRiwi = []
+ingresarOtroEstudiante = "si"
+
+while ingresarOtroEstudiante == "si":
+    print("Nuevo estudiante")
+    nombre = input("ingrese el nombre =>")
+    apellido = input("ingrese el apellido =>")
+    edad = input("ingrese la edad =>")
+    direccion = input("ingrese la direccion =>")
+    correo = input("ingrese su correo =>")
+
+    estudiante = {
+        "nombre": nombre,
+        "apellido": apellido,
+        "edad": edad,
+        "direccion": direccion,
+        "correo": correo
+    }
+    
+    listaEstudiantesRiwi.append(estudiante)
+    respuesta = input("vas a ingresar otro estudiante? =>")
+    
+    if respuesta != "si":
+        ingresarOtroEstudiante = False
+```
+
+## Iterating Over Different Data Structures
+
+### Iterating Over Lists
+
+```python
+miembrosDeLaFamilia = ["papa", "mama", "yo"]
+
+for miembro in miembrosDeLaFamilia:
+    print("#->", miembro.upper())
+
+# Output:
+# #-> PAPA
+# #-> MAMA
+# #-> YO
+```
+
+### Iterating Over Dictionaries
+
+```python
+estudiante = {
+    "nombre": "Carlos",
+    "edad": 20,
+    "carrera": "Ingeniería"
+}
+
+# Iterate over keys
+for clave in estudiante:
+    print(clave)
+
+# Iterate over values
+for valor in estudiante.values():
+    print(valor)
+
+# Iterate over key-value pairs
+for clave, valor in estudiante.items():
+    print(f"{clave}: {valor}")
+```
+
+### Iterating Over Strings
+
+```python
+palabra = "Python"
+for letra in palabra:
+    print(letra)
+# Output: P, y, t, h, o, n
+```
+
+## Loop Control Statements
+
+### break - Exit Loop Early
+
+```python
+for numero in range(10):
+    if numero == 5:
+        break  # Exit loop when numero is 5
+    print(numero)
+# Output: 0, 1, 2, 3, 4
+```
+
+### continue - Skip Current Iteration
+
+```python
+for numero in range(10):
+    if numero % 2 == 0:  # If even
+        continue  # Skip to next iteration
+    print(numero)
+# Output: 1, 3, 5, 7, 9 (only odd numbers)
+```
+
+### else with Loops
+
+The `else` clause executes when the loop completes normally (not via break):
+
+```python
+for numero in range(5):
+    print(numero)
+else:
+    print("Loop completed!")
+
+# With break - else won't execute
+for numero in range(10):
+    if numero == 5:
+        break
+    print(numero)
+else:
+    print("This won't print")  # Skipped because of break
+```
+
+<Note>
+The **else** clause with loops is uncommon but useful for search operations where you need to know if the loop completed without finding something.
+</Note>
+
+## Nested Loops
+
+Loops can be nested inside other loops:
+
+```python
+# Multiplication table
+for i in range(1, 4):
+    for j in range(1, 4):
+        print(f"{i} x {j} = {i*j}")
+    print("---")  # Separator between tables
+```
+
+## Real-World Example: Student Management
+
+Here's a complete example combining loops and data structures:
+
+```python
+listaEstudiantesRiwi = []
+ingresarOtroEstudiante = "si"
+
+# Collect student data
+while ingresarOtroEstudiante == "si":
+    print("Nuevo estudiante")
+    nombre = input("ingrese el nombre =>")
+    apellido = input("ingrese el apellido =>")
+    edad = input("ingrese la edad =>")
+    direccion = input("ingrese la direccion =>")
+    correo = input("ingrese su correo =>")
+
+    estudiante = {
+        "nombre": nombre,
+        "apellido": apellido,
+        "edad": edad,
+        "direccion": direccion,
+        "correo": correo
+    }
+    
+    listaEstudiantesRiwi.append(estudiante)
+    respuesta = input("vas a ingresar otro estudiante? =>")
+    
+    if respuesta != "si":
+        ingresarOtroEstudiante = False
+
+# Display all students
+for estudiante in listaEstudiantesRiwi:
+    print(f"""
+        Nombre=> {estudiante["nombre"]}
+        Apellido=> {estudiante["apellido"]}
+        Edad=> {estudiante["edad"]}
+        Correo=> {estudiante["correo"]}
+        Direccion=> {estudiante["direccion"]}
+    """)
+```
+
+## Loop Patterns and Best Practices
+
+<AccordionGroup>
+<Accordion title="Pattern: Counter Loop">
+```python
+# When you need to track iterations
+for i in range(10):
+    print(f"Iteration {i}")
+```
+Use when you need to know which iteration you're on.
+</Accordion>
+
+<Accordion title="Pattern: User-Controlled Loop">
+```python
+continuar = True
+while continuar:
+    # Do something
+    respuesta = input("Continue? (si/no): ")
+    if respuesta != "si":
+        continuar = False
+```
+Use when the user controls loop termination.
+</Accordion>
+
+<Accordion title="Pattern: Accumulator">
+```python
+total = 0
+for numero in [1, 2, 3, 4, 5]:
+    total += numero
+print(total)  # 15
+```
+Use when building up a result across iterations.
+</Accordion>
+
+<Accordion title="Pattern: Filter and Process">
+```python
+numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+pares = []
+for num in numeros:
+    if num % 2 == 0:
+        pares.append(num)
+print(pares)  # [2, 4, 6, 8, 10]
+```
+Use when filtering and collecting items.
+</Accordion>
+</AccordionGroup>
+
+## For vs While: When to Use
+
+### Use FOR loops when:
+- You know how many iterations you need
+- You're iterating over a collection
+- You're using range() for a counted loop
+
+```python
+# Perfect for FOR loop
+for i in range(10):
+    print(i)
+
+for item in lista:
+    process(item)
+```
+
+### Use WHILE loops when:
+- The number of iterations is unknown
+- You're waiting for a condition to change
+- User input controls the loop
+
+```python
+# Perfect for WHILE loop
+while user_wants_to_continue:
+    # do something
+    response = input("Continue? ")
+    user_wants_to_continue = (response == "yes")
+```
+
+## List Comprehensions (Advanced Loop Pattern)
+
+A more Pythonic way to create lists:
+
+```python
+# Traditional loop
+cuadrados = []
+for x in range(10):
+    cuadrados.append(x**2)
+
+# List comprehension (more Pythonic)
+cuadrados = [x**2 for x in range(10)]
+print(cuadrados)  # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+# With condition
+pares = [x for x in range(20) if x % 2 == 0]
+print(pares)  # [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+```
+
+<Tip>
+List comprehensions are more concise and often faster than traditional loops for creating lists.
+</Tip>
+
+## Common Loop Mistakes to Avoid
+
+<Warning>
+**Modifying list while iterating:**
+```python
+# ❌ Bad - modifying list during iteration
+lista = [1, 2, 3, 4, 5]
+for item in lista:
+    if item % 2 == 0:
+        lista.remove(item)  # Can skip elements!
+
+# ✅ Good - iterate over a copy
+lista = [1, 2, 3, 4, 5]
+for item in lista[:]:
+    if item % 2 == 0:
+        lista.remove(item)
+```
+</Warning>
+
+## Key Takeaways
+
+- **For loops** are for iterating over sequences
+- **While loops** continue until a condition becomes false
+- Use **break** to exit loops early
+- Use **continue** to skip to next iteration
+- **range()** generates number sequences for counting
+- Always ensure while loops have an exit condition
+- Consider **list comprehensions** for creating lists from loops
+- Use **enumerate()** when you need both index and value (see next section)
+
+<Note>
+For more advanced iteration with indices, see the [Enumerate](/data-structures/enumerate) page.
+</Note>

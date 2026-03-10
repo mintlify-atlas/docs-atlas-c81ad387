@@ -1,0 +1,334 @@
+---
+title: "Tuples"
+description: "Master Python tuples - immutable, ordered collections that are faster than lists. Learn creation, access patterns, unpacking, and when to use tuples."
+---
+
+# Tuples in Python
+
+Tuples are **immutable** collections in Python - once created, they cannot be modified. They're faster than lists and are used for data that shouldn't change. Tuples are defined with parentheses `()`.
+
+<Note>
+The key difference between tuples and lists: **tuples cannot be modified** after creation.
+</Note>
+
+## Creating Tuples
+
+### Basic Creation
+
+```python
+# Form 1: With parentheses
+coordenadas = (10, 20)
+persona = ("Juan", 30, "Madrid")
+
+# Form 2: Without parentheses (also works)
+numeros = 1, 2, 3, 4, 5
+
+# Empty tuple
+vacia = ()
+# or: vacia = tuple()
+```
+
+### Single Element Tuple
+
+<Warning>
+For a single-element tuple, you **must** include a comma:
+</Warning>
+
+```python
+# Correct - this is a tuple
+una_tupla = (42,)  # ✅
+
+# Incorrect - this is just a number in parentheses
+no_es_tupla = (42)  # ❌
+```
+
+### Convert from List
+
+```python
+lista = [1, 2, 3]
+tupla_desde_lista = tuple(lista)
+print(tupla_desde_lista)  # (1, 2, 3)
+```
+
+## Accessing Elements
+
+Accessing tuple elements works exactly like lists:
+
+```python
+frutas = ("manzana", "banana", "cereza", "durazno")
+
+# Access by index
+print(frutas[0])   # manzana
+print(frutas[-1])  # durazno (last element)
+
+# Slicing
+print(frutas[1:3])   # ('banana', 'cereza')
+print(frutas[:2])    # ('manzana', 'banana')
+print(frutas[2:])    # ('cereza', 'durazno')
+```
+
+## Immutability
+
+Tuples cannot be modified after creation:
+
+```python
+colores = ("rojo", "verde", "azul")
+
+# ❌ Cannot modify elements
+# colores[0] = "amarillo"  # TypeError
+
+# ❌ Cannot add elements
+# colores.append("negro")  # AttributeError
+
+# ❌ Cannot delete elements
+# del colores[0]  # TypeError
+```
+
+<Tip>
+Immutability makes tuples **safer** for data that shouldn't change and allows them to be used as dictionary keys.
+</Tip>
+
+## Basic Operations
+
+### Concatenation and Repetition
+
+```python
+t1 = (1, 2, 3)
+t2 = (4, 5, 6)
+
+# Concatenate tuples (creates a NEW tuple)
+t3 = t1 + t2
+print(t3)  # (1, 2, 3, 4, 5, 6)
+
+# Repeat tuples
+t4 = t1 * 3
+print(t4)  # (1, 2, 3, 1, 2, 3, 1, 2, 3)
+
+# Length
+print(len(t1))  # 3
+```
+
+### Check Existence
+
+```python
+numeros = (10, 20, 30, 40, 50)
+
+if 30 in numeros:
+    print("30 está en la tupla")
+
+if 100 not in numeros:
+    print("100 NO está en la tupla")
+```
+
+## Tuple Methods
+
+Tuples have only two methods (due to immutability):
+
+<AccordionGroup>
+<Accordion title="count() - Count Occurrences">
+```python
+valores = (1, 2, 3, 2, 4, 2, 5)
+print(valores.count(2))  # 3
+```
+Counts how many times a value appears in the tuple.
+</Accordion>
+
+<Accordion title="index() - Find Position">
+```python
+valores = (1, 2, 3, 2, 4, 2, 5)
+print(valores.index(4))  # 4
+
+# Raises ValueError if not found
+# print(valores.index(10))  # ❌ ValueError
+```
+Returns the index of the first occurrence of a value.
+</Accordion>
+</AccordionGroup>
+
+## Tuple Unpacking
+
+One of the most powerful features of tuples is unpacking:
+
+### Basic Unpacking
+
+```python
+# Assign tuple values to variables
+coordenadas = (100, 200)
+x, y = coordenadas
+print(x)  # 100
+print(y)  # 200
+
+# With more elements
+persona = ("Ana", 25, "Ingeniera")
+nombre, edad, profesion = persona
+print(f"{nombre} tiene {edad} años")
+```
+
+### Unpacking with * (Rest Operator)
+
+```python
+numeros = (1, 2, 3, 4, 5)
+
+# Capture first, second, and rest
+primero, segundo, *resto = numeros
+print(primero)  # 1
+print(segundo)  # 2
+print(resto)    # [3, 4, 5] - becomes a list!
+
+# Capture first, middle, and last
+primero, *medio, ultimo = numeros
+print(medio)  # [2, 3, 4]
+```
+
+<Note>
+When using `*` in unpacking, the captured elements become a **list**, not a tuple.
+</Note>
+
+## Iterating Over Tuples
+
+### Simple Iteration
+
+```python
+dias = ("lunes", "martes", "miércoles", "jueves", "viernes")
+
+# Iterate over elements
+for dia in dias:
+    print(dia)
+```
+
+### Iteration with Index
+
+```python
+# Use enumerate() to get both index and value
+for indice, dia in enumerate(dias):
+    print(f"{indice}: {dia}")
+```
+
+## Nested Tuples
+
+Tuples can contain other tuples:
+
+```python
+# Tuples within tuples
+matriz = (
+    (1, 2, 3),
+    (4, 5, 6),
+    (7, 8, 9)
+)
+
+print(matriz[0])      # (1, 2, 3)
+print(matriz[1][2])   # 6
+```
+
+## Comparing Tuples
+
+Tuples are compared element by element, from left to right:
+
+```python
+print((1, 2, 3) < (1, 2, 4))   # True
+print((1, 2) < (1, 2, 0))      # True (shorter is less)
+print(("a", "b") < ("a", "c")) # True
+```
+
+## Tuples vs Lists
+
+<AccordionGroup>
+<Accordion title="Advantages of Tuples">
+1. **Faster** than lists
+2. **Protect data** (immutable)
+3. Can be used as **dictionary keys** (lists cannot)
+4. Use **less memory**
+
+```python
+# Tuples as dictionary keys
+diccionario_con_tuplas = {
+    (0, 0): "origen",
+    (1, 0): "punto A",
+    (0, 1): "punto B"
+}
+print(diccionario_con_tuplas[(0, 0)])  # origen
+
+# Lists cannot be dictionary keys:
+# diccionario = {[1, 2]: "valor"}  # ❌ TypeError: unhashable type: 'list'
+```
+</Accordion>
+
+<Accordion title="When to Use Tuples">
+Use tuples for:
+
+**1. Coordinates**
+```python
+punto_3d = (10, 20, 30)
+```
+
+**2. Data that shouldn't change**
+```python
+fecha_nacimiento = (15, 8, 1990)  # día, mes, año
+```
+
+**3. Returning multiple values from functions**
+```python
+def calcular_estadisticas(numeros):
+    return min(numeros), max(numeros), sum(numeros) / len(numeros)
+
+minimo, maximo, promedio = calcular_estadisticas([1, 2, 3, 4, 5])
+```
+
+**4. Dictionary keys**
+```python
+ubicaciones = {
+    (40.7128, -74.0060): "Nueva York",
+    (51.5074, -0.1278): "Londres"
+}
+```
+</Accordion>
+</AccordionGroup>
+
+## Named Tuples
+
+For more readable code, use `namedtuple` from the collections module:
+
+```python
+from collections import namedtuple
+
+# Create a tuple class with named fields
+Punto = namedtuple('Punto', ['x', 'y'])
+p = Punto(10, 20)
+
+print(p.x)      # 10 - access by name
+print(p[0])     # 10 - access by index (also works)
+print(p)        # Punto(x=10, y=20)
+
+# More readable code
+Persona = namedtuple('Persona', ['nombre', 'edad', 'ciudad'])
+juan = Persona('Juan', 30, 'Madrid')
+print(f"{juan.nombre} vive en {juan.ciudad}")
+```
+
+## Conversions
+
+```python
+# Tuple to list
+mi_tupla = (1, 2, 3)
+mi_lista = list(mi_tupla)
+print(mi_lista)  # [1, 2, 3]
+
+# List to tuple
+mi_lista = [4, 5, 6]
+mi_tupla = tuple(mi_lista)
+print(mi_tupla)  # (4, 5, 6)
+
+# String to tuple
+texto = "Python"
+tupla_letras = tuple(texto)
+print(tupla_letras)  # ('P', 'y', 't', 'h', 'o', 'n')
+```
+
+## Key Takeaways
+
+- Tuples are **immutable** - cannot be modified after creation
+- Tuples are **faster** and use less memory than lists
+- Use tuples for **fixed data** that shouldn't change
+- Tuples can be **dictionary keys**, lists cannot
+- Tuple **unpacking** is a powerful feature for working with multiple values
+- Use **namedtuple** for more readable code when tuples have many fields

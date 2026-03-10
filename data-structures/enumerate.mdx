@@ -1,0 +1,353 @@
+---
+title: "Enumerate"
+description: "Master Python's enumerate() function for elegant iteration with indices. Learn how to access both position and value when looping through collections."
+---
+
+# Enumerate in Python
+
+The `enumerate()` function is a powerful tool that takes an iterable (list, tuple, string, etc.) and returns an enumerate object that produces tuples of `(index, element)`. It's the Pythonic way to access both the position and value while iterating.
+
+<Note>
+**enumerate()** eliminates the need for manual index tracking, making your code cleaner and less error-prone.
+</Note>
+
+## Basic Usage
+
+### Without enumerate (Traditional Way)
+
+```python
+frutas = ["manzana", "banana", "naranja", "uva"]
+
+print("Sin enumerate:")
+for i in range(len(frutas)):
+    print(f"Índice {i}: {frutas[i]}")
+```
+
+### With enumerate (Pythonic Way)
+
+```python
+frutas = ["manzana", "banana", "naranja", "uva"]
+
+print("Con enumerate:")
+for indice, fruta in enumerate(frutas):
+    # enumerate returns tuples: (0, "manzana"), (1, "banana"), etc.
+    print(f"Índice {indice}: {fruta}")
+```
+
+<Tip>
+The **enumerate()** approach is more readable, less prone to index errors, and more Pythonic than using `range(len())`.
+</Tip>
+
+## Custom Starting Index
+
+By default, enumerate starts at 0, but you can change this:
+
+```python
+frutas = ["manzana", "banana", "naranja", "uva"]
+
+print("Enumerate comenzando en 1:")
+for numero, fruta in enumerate(frutas, start=1):
+    # Now indices go from 1 to 4 instead of 0 to 3
+    print(f"{numero}. {fruta}")
+
+# Output:
+# 1. manzana
+# 2. banana
+# 3. naranja
+# 4. uva
+```
+
+<AccordionGroup>
+<Accordion title="Why Use start=1?">
+Starting at 1 is perfect for:
+- Creating numbered menus
+- Displaying ranked lists
+- Showing human-friendly positions (people count from 1, not 0)
+- Generating reports with line numbers
+</Accordion>
+</AccordionGroup>
+
+## Enumerate with Strings
+
+```python
+palabra = "Python"
+
+print("Enumerate con strings:")
+for posicion, letra in enumerate(palabra):
+    # Each character of the string is treated as an element
+    print(f"Posición {posicion}: '{letra}'")
+
+# Output:
+# Posición 0: 'P'
+# Posición 1: 'y'
+# Posición 2: 't'
+# Posición 3: 'h'
+# Posición 4: 'o'
+# Posición 5: 'n'
+```
+
+## Enumerate with Conditionals
+
+Combine enumerate with if statements for powerful filtering:
+
+```python
+numeros = [10, 25, 30, 45, 50, 15, 60]
+
+print("Encontrar índices de números mayores a 30:")
+for idx, num in enumerate(numeros):
+    if num > 30:
+        print(f"El número {num} está en el índice {idx}")
+
+# Output:
+# El número 45 está en el índice 3
+# El número 50 está en el índice 4
+# El número 60 está en el índice 6
+```
+
+## Enumerate with List Comprehensions
+
+Create lists of tuples with indices:
+
+```python
+# Create a list of tuples (index, value squared)
+cuadrados = [(i, x**2) for i, x in enumerate([1, 2, 3, 4, 5])]
+print("Lista de comprensión con enumerate:")
+print(cuadrados)
+# Result: [(0, 1), (1, 4), (2, 9), (3, 16), (4, 25)]
+```
+
+## Practical Example: Modifying Lists
+
+Use enumerate to modify specific positions:
+
+```python
+precios = [100, 200, 150, 300]
+print("Precios originales:", precios)
+
+# Apply 10% discount to products in even positions
+for i, precio in enumerate(precios):
+    if i % 2 == 0:  # Positions 0, 2, 4...
+        precios[i] = precio * 0.9  # 10% discount
+
+print("Precios con descuento en posiciones pares:", precios)
+# Output: [90.0, 200, 135.0, 300]
+```
+
+<Warning>
+When modifying a list during iteration, make sure you're accessing the list by index (`precios[i]`), not the loop variable.
+</Warning>
+
+## Enumerate with Multiple Iterables (Using zip)
+
+Combine enumerate with zip for parallel iteration:
+
+```python
+nombres = ["Ana", "Luis", "María"]
+edades = [25, 30, 28]
+
+print("Combine enumerate con zip:")
+for idx, (nombre, edad) in enumerate(zip(nombres, edades)):
+    # zip combines both lists, enumerate adds the index
+    print(f"{idx + 1}. {nombre} tiene {edad} años")
+
+# Output:
+# 1. Ana tiene 25 años
+# 2. Luis tiene 30 años
+# 3. María tiene 28 años
+```
+
+<Tip>
+Combining **enumerate()** with **zip()** is powerful for processing multiple related lists simultaneously.
+</Tip>
+
+## Enumerate with Dictionaries
+
+```python
+estudiante = {
+    "nombre": "Carlos",
+    "edad": 20,
+    "carrera": "Ingeniería"
+}
+
+print("Enumerate con diccionarios:")
+for idx, (clave, valor) in enumerate(estudiante.items()):
+    # .items() returns tuples (key, value)
+    print(f"{idx}. {clave}: {valor}")
+
+# Output:
+# 0. nombre: Carlos
+# 1. edad: 20
+# 2. carrera: Ingeniería
+```
+
+## Real-World Example: Interactive Menu
+
+A common use case for enumerate:
+
+```python
+opciones = ["Ver productos", "Agregar al carrito", "Pagar", "Salir"]
+
+print("MENÚ PRINCIPAL:")
+for num, opcion in enumerate(opciones, start=1):
+    print(f"  {num}. {opcion}")
+
+# User sees:
+#   1. Ver productos
+#   2. Agregar al carrito
+#   3. Pagar
+#   4. Salir
+```
+
+## Common Patterns with Enumerate
+
+<AccordionGroup>
+<Accordion title="Pattern: Find All Positions of a Value">
+```python
+numeros = [1, 3, 5, 3, 7, 3, 9]
+target = 3
+
+posiciones = [idx for idx, num in enumerate(numeros) if num == target]
+print(f"Positions of {target}: {posiciones}")
+# Output: Positions of 3: [1, 3, 5]
+```
+</Accordion>
+
+<Accordion title="Pattern: Process Every Nth Element">
+```python
+items = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+
+# Process every 3rd element
+for idx, item in enumerate(items):
+    if idx % 3 == 0:
+        print(f"Processing {item} at index {idx}")
+```
+</Accordion>
+
+<Accordion title="Pattern: Create Numbered Labels">
+```python
+tareas = ["Lavar platos", "Hacer tarea", "Llamar a mamá"]
+
+labeled = [f"{i+1}. {tarea}" for i, tarea in enumerate(tareas)]
+print(labeled)
+# ['1. Lavar platos', '2. Hacer tarea', '3. Llamar a mamá']
+```
+</Accordion>
+
+<Accordion title="Pattern: Track First and Last">
+```python
+items = ['a', 'b', 'c', 'd', 'e']
+
+for idx, item in enumerate(items):
+    if idx == 0:
+        print(f"First: {item}")
+    elif idx == len(items) - 1:
+        print(f"Last: {item}")
+    else:
+        print(f"Middle: {item}")
+```
+</Accordion>
+</AccordionGroup>
+
+## Enumerate vs range(len())
+
+### ❌ Avoid: Using range(len())
+
+```python
+frutas = ["manzana", "banana", "naranja"]
+
+# Less readable and more error-prone
+for i in range(len(frutas)):
+    print(f"{i}: {frutas[i]}")
+```
+
+### ✅ Prefer: Using enumerate()
+
+```python
+frutas = ["manzana", "banana", "naranja"]
+
+# More Pythonic and safer
+for i, fruta in enumerate(frutas):
+    print(f"{i}: {fruta}")
+```
+
+<Note>
+**enumerate()** is:
+- More readable
+- Less prone to index errors
+- Works with any iterable (not just lists)
+- More Pythonic
+</Note>
+
+## Advanced: Unpacking in Enumerate
+
+When iterating over sequences of sequences:
+
+```python
+coordenadas = [(10, 20), (30, 40), (50, 60)]
+
+for idx, (x, y) in enumerate(coordenadas):
+    print(f"Point {idx}: x={x}, y={y}")
+
+# Output:
+# Point 0: x=10, y=20
+# Point 1: x=30, y=40
+# Point 2: x=50, y=60
+```
+
+## Performance Note
+
+```python
+# enumerate() is efficient - it's an iterator, not creating a full list
+for idx, item in enumerate(huge_list):
+    # Memory efficient, even with millions of items
+    process(idx, item)
+```
+
+<Tip>
+**enumerate()** returns an iterator, so it's memory-efficient even with very large collections.
+</Tip>
+
+## Advantages of enumerate()
+
+<AccordionGroup>
+<Accordion title="1. More Readable">
+Code intent is immediately clear - you're iterating with indices.
+</Accordion>
+
+<Accordion title="2. More Pythonic">
+Follows Python's philosophy of elegant, readable code.
+</Accordion>
+
+<Accordion title="3. Less Error-Prone">
+No manual index tracking means fewer off-by-one errors.
+</Accordion>
+
+<Accordion title="4. Simultaneous Access">
+Access both index and value in one statement.
+</Accordion>
+
+<Accordion title="5. Works with Any Iterable">
+Works with lists, tuples, strings, generators, etc.
+</Accordion>
+</AccordionGroup>
+
+## When to Use enumerate()
+
+Use enumerate when you need:
+- Both the index and the value
+- To create numbered lists or menus
+- To track position while iterating
+- To modify specific positions in a list
+- To find positions of matching elements
+- To process every nth element
+
+## Key Takeaways
+
+- **enumerate()** returns `(index, value)` tuples while iterating
+- Start index is customizable with the `start` parameter
+- More Pythonic than `range(len())`
+- Works with any iterable (lists, tuples, strings, etc.)
+- Eliminates manual index tracking
+- Combines well with **zip()** for parallel iteration
+- Perfect for creating numbered menus and reports
+- Memory efficient - uses iterators, not lists

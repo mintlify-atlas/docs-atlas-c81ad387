@@ -1,0 +1,190 @@
+---
+title: Number Handling in Python
+description: Learn to work with integers, floats, type conversion, and mathematical operations in Python
+---
+
+## Introduction to Numbers
+
+Python provides robust support for numeric operations with two primary numeric types: integers (`int`) and floating-point numbers (`float`). Understanding the distinction between these types is essential for effective numeric programming.
+
+## Integer vs Float
+
+### Integers (int)
+
+Integers represent whole numbers without decimal points:
+
+```python
+numeroB = int(input("Ingresa un número entero para 'numeroB': "))
+print(f"Valor de numeroB: {numeroB}, Tipo: {type(numeroB)}")
+```
+
+<Info>
+Integers can only contain whole numbers without decimals. Examples: `42`, `-17`, `0`, `1000`
+</Info>
+
+### Floating-Point Numbers (float)
+
+Floats represent numbers with decimal points:
+
+```python
+numeroC = float(input("Ingresa un número decimal para 'numeroC': "))
+print(f"Valor de numeroC: {numeroC}, Tipo: {type(numeroC)}")
+```
+
+<Note>
+Floats can contain both whole numbers and decimals. Examples: `3.14`, `2.0`, `-5.7`, `0.001`
+</Note>
+
+## Type Conversion
+
+Python allows seamless conversion between numeric types:
+
+### Converting Float to Integer
+
+```python
+entero = int(3.14)
+print(entero)  # 3
+print(type(entero))  # <class 'int'>
+```
+
+<Tip>
+When converting float to int, Python truncates the decimal part (rounds down toward zero), not rounds to nearest integer.
+</Tip>
+
+### Converting String to Float
+
+```python
+flotante = float("3.14")
+print(flotante)  # 3.14
+print(type(flotante))  # <class 'float'>
+```
+
+### Complete Conversion Example
+
+```python
+# Original values
+entero = int(3.14)
+flotante = float("3.14")
+
+print(f"Entero: {entero}, Tipo: {type(entero)}")
+print(f"Flotante: {flotante}, Tipo: {type(flotante)}")
+```
+
+## The Math Module
+
+Python's `math` module provides advanced mathematical functions and constants:
+
+```python
+import math
+```
+
+### Mathematical Functions
+
+```python
+# Square root
+print(math.sqrt(25))  # 5.0
+
+# Factorial
+print(math.factorial(5))  # 120
+```
+
+### Mathematical Constants
+
+```python
+# Pi constant
+print(math.pi)  # 3.141592653589793
+
+# Euler's number
+print(math.e)   # 2.718281828459045
+```
+
+<Info>
+The `math` module must be imported before use: `import math`
+</Info>
+
+## Common Math Module Functions
+
+| Function | Description | Example |
+|----------|-------------|----------|
+| `math.sqrt(x)` | Square root of x | `math.sqrt(16)` → 4.0 |
+| `math.factorial(x)` | Factorial of x | `math.factorial(5)` → 120 |
+| `math.pow(x, y)` | x raised to power y | `math.pow(2, 3)` → 8.0 |
+| `math.floor(x)` | Round down to integer | `math.floor(3.7)` → 3 |
+| `math.ceil(x)` | Round up to integer | `math.ceil(3.2)` → 4 |
+| `math.pi` | Pi constant | `math.pi` → 3.14159... |
+| `math.e` | Euler's number | `math.e` → 2.71828... |
+
+## Input Handling for Numbers
+
+When accepting numeric input from users, you must convert the string input to the appropriate numeric type:
+
+### Integer Input
+
+```python
+numero = int(input("Enter an integer: "))
+print(f"You entered: {numero}")
+print(f"Type: {type(numero)}")
+```
+
+### Float Input
+
+```python
+numero = float(input("Enter a decimal number: "))
+print(f"You entered: {numero}")
+print(f"Type: {type(numero)}")
+```
+
+<Note>
+Always wrap `input()` with `int()` or `float()` when expecting numeric input, as `input()` returns strings by default.
+</Note>
+
+## Practical Example
+
+Here's a complete example demonstrating number handling:
+
+```python
+import math
+
+print("*" * 41)
+print("|       Manejo de numeros en python      |")
+print("*" * 41)
+
+print()
+print("Para el manejo de números, es importante distinguir entre enteros (int) y números decimales (float)")
+print("La variable 'numeroB' será un entero, lo que significa que solo puede contener números enteros, sin decimales.")
+print("La variable 'numeroC' permitirá valores decimales, lo que significa que puede contener números enteros y decimales.")
+print()
+
+numeroB = int(input("Ingresa un número entero para 'numeroB': "))
+numeroC = float(input("Ingresa un número decimal para 'numeroC': "))
+
+print()
+print("Conversion de numeros")
+print("Python permite convertir entre diferentes tipos de números, como enteros, flotantes y complejos.")
+print()
+
+entero = int(3.14)
+flotante = float("3.14")
+
+print()
+print(f"Valor de numeroB: {numeroB}, Tipo: {type(numeroB)}")
+print(f"Valor de numeroC: {numeroC}, Tipo: {type(numeroC)}")
+
+# Otras funciones matemáticas
+print(math.sqrt(25))  # Imprime la raíz cuadrada de 25
+print(math.factorial(5))  # Imprime el factorial de 5
+
+# Constantes matemáticas
+print(math.pi)  # Imprime el valor de π
+print(math.e)   # Imprime el valor de e
+```
+
+## Key Points
+
+<Tip>
+- Use `int()` for whole numbers only
+- Use `float()` for numbers that may have decimal points
+- Import `math` module for advanced mathematical operations
+- Always convert user input to the appropriate numeric type
+- Converting float to int truncates the decimal part
+</Tip>

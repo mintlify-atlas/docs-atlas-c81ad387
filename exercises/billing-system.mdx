@@ -1,0 +1,517 @@
+---
+title: 'Billing and Invoicing System'
+description: 'Create a complete billing system with customer management, product selection, and invoice generation with tax calculations'
+---
+
+## Overview
+
+This exercise builds a billing system that manages customer registration, product catalogs, invoice creation, and tax calculations. It demonstrates how to build a transaction-based system with running totals and final invoice generation.
+
+<Note>
+  **Difficulty Level**: Advanced
+  
+  **Concepts Covered**: Tuples, dictionaries, invoice management, financial calculations, state management, multi-step workflows
+</Note>
+
+## What You'll Learn
+
+<Steps>
+  <Step title="Immutable Product Catalog">
+    Use tuples to create read-only product data that cannot be accidentally modified
+  </Step>
+  
+  <Step title="Customer State Management">
+    Track customer information throughout the session
+  </Step>
+  
+  <Step title="Invoice Building">
+    Accumulate line items into a complete invoice
+  </Step>
+  
+  <Step title="Financial Calculations">
+    Calculate line totals, subtotals, IVA (tax), and final totals
+  </Step>
+</Steps>
+
+## Complete Code
+
+Here's the full billing system implementation:
+
+```python
+productos = (
+    {
+        "nombre": "pan",
+        "valor": 1000
+    },
+    {
+        "nombre": "galleta",
+        "valor": 800
+    },
+    {
+        "nombre": "arina",
+        "valor": 1500
+    }
+)
+
+documentoCliente = ""
+nombreCliente = ""
+apellidoCliente = ""
+factura = []
+
+while True:
+    print()
+    print("########")
+    print("--MENU--")
+    print("########")
+    menu = """
+    (1) Registar cliente  
+    (2) Registrar un nuevo producto a la factura  
+    (3) Listar productos actuales de la factura.   
+    (4) Mostrar factura   
+    (5) Apagar el programa
+    """
+    print(menu)
+
+    opcionMenu = input("INGRESE LA OPCION=>")
+
+    if opcionMenu == "1":
+        if (documentoCliente == "" or nombreCliente == "" or apellidoCliente == ""):
+            print("-------------------")
+            print("Vamos a registrarte")
+            documentoCliente = input("ingrese el # documento=>")
+            nombreCliente = input("ingrese los nombres=>")
+            apellidoCliente = input("ingrese los apellidos=>")
+            print("-------------------")
+            print("Datos registrados")
+            print("DOC:", documentoCliente)
+            print("NOMBRES:", nombreCliente)
+            print("APELLIDOS:", apellidoCliente)
+        else:
+            print("-------------------")
+            print("Ya hay un usuario registrado")
+            print("DOC:", documentoCliente)
+            print("NOMBRES:", nombreCliente)
+            print("APELLIDOS:", apellidoCliente)
+            print("Estas seguro que quieres actualizarlo?")
+            respuesta = input("(1) si (2) no =>")
+            if respuesta == "1":
+                documentoCliente = input("ingrese el # documento=>")
+                nombreCliente = input("ingrese los nombres=>")
+                apellidoCliente = input("ingrese los apellidos=>")
+                print("Datos registrados")
+                print("DOC:", documentoCliente)
+                print("NOMBRES:", nombreCliente)
+                print("APELLIDOS:", apellidoCliente)
+                print("Usuario actualizado")
+    elif opcionMenu == "2":
+        # aca listamos los productos disponibles
+        indice = 0
+        for producto in productos:
+            print(f"[{indice}] {producto["nombre"]} {producto["valor"]}")
+            indice += 1
+        # en esta parte le pedimos al usuario que nos diga cual producto va agregar a la factura
+        productoSeleccionado = int(input("ingrese el indice del producto que quieres agregar?=>"))
+        cantidad = int(input("cuantas unidades vas a comprar?=>"))
+        totalProducto = cantidad * productos[productoSeleccionado]["valor"]
+
+        # creamos un nuevo diccionario para guardarlo en la factura
+        nuevoProductoEnFactura = {
+            "nombre": productos[productoSeleccionado]["nombre"],
+            "valor": productos[productoSeleccionado]["valor"],
+            "unidades": cantidad,
+            "totalProducto": totalProducto
+        }
+        factura.append(nuevoProductoEnFactura)
+        print("producto agregado a la factura")
+    elif opcionMenu == "3":
+        valorTotalFactura = 0
+        for producto in factura:
+            valorTotalFactura += producto["totalProducto"]
+
+        print("FACTURA")
+        print("Datos registrados")
+        print("DOC:", documentoCliente)
+        print("NOMBRES:", nombreCliente)
+        print("APELLIDOS:", apellidoCliente)
+        for producto in factura:
+            print(f"{producto["nombre"]} {producto["valor"]}")
+
+
+        print("--------------------")
+        print(valorTotalFactura)
+
+        cantidadProductos = len(factura)
+        valorNeto = 0
+        for producto in factura:
+            valorNeto += producto["totalProducto"]
+        impuestoIva = valorNeto * 0.19
+        totalFactura = valorNeto + impuestoIva
+        print("--------------------")
+        print("productos en factura")
+        print("--------------------")
+        for producto in factura:
+            print(f"{producto["nombre"]} {producto["valor"]} * {producto["unidades"]} = {producto["totalProducto"]}")
+        print("--------------------")
+    elif opcionMenu == "4":
+
+
+    elif opcionMenu == "5":
+        print("Feliz dia")
+        break
+    else:
+        print("#############################")
+        print("ingreste una opcion invalida")
+        print("#############################")
+```
+
+## Code Breakdown
+
+### Section 1: Product Catalog Using Tuple
+
+```python
+productos = (
+    {
+        "nombre": "pan",
+        "valor": 1000
+    },
+    {
+        "nombre": "galleta",
+        "valor": 800
+    },
+    {
+        "nombre": "arina",
+        "valor": 1500
+    }
+)
+```
+
+<Info>
+  **Why a Tuple?** Using a tuple (immutable) instead of a list (mutable) prevents accidental modification of the product catalog. This is a good practice when you want to ensure certain data remains constant throughout the program.
+</Info>
+
+### Section 2: State Variables
+
+```python
+documentoCliente = ""
+nombreCliente = ""
+apellidoCliente = ""
+factura = []
+```
+
+<Accordion title="Global State Management">
+  These variables maintain state throughout the program:
+  - Customer information (document, name, surname) stored as strings
+  - Empty strings indicate no customer is registered
+  - `factura` list accumulates invoice line items
+</Accordion>
+
+### Section 3: Customer Registration (Option 1)
+
+```python
+if opcionMenu == "1":
+    if (documentoCliente == "" or nombreCliente == "" or apellidoCliente == ""):
+        # First registration
+        print("Vamos a registrarte")
+        documentoCliente = input("ingrese el # documento=>")
+        nombreCliente = input("ingrese los nombres=>")
+        apellidoCliente = input("ingrese los apellidos=>")
+        print("Datos registrados")
+    else:
+        # Update existing customer
+        print("Ya hay un usuario registrado")
+        print("Estas seguro que quieres actualizarlo?")
+        respuesta = input("(1) si (2) no =>")
+        if respuesta == "1":
+            # Update customer data
+```
+
+<Steps>
+  <Step title="Check Existing Customer">
+    Test if any customer field is empty using OR logic
+  </Step>
+  
+  <Step title="Register or Update">
+    Either collect new data or offer to update existing
+  </Step>
+  
+  <Step title="Confirm Updates">
+    Ask for confirmation before overwriting customer data
+  </Step>
+</Steps>
+
+### Section 4: Add Product to Invoice (Option 2)
+
+```python
+elif opcionMenu == "2":
+    # Display available products
+    indice = 0
+    for producto in productos:
+        print(f"[{indice}] {producto["nombre"]} {producto["valor"]}")
+        indice += 1
+    
+    # Get user selection
+    productoSeleccionado = int(input("ingrese el indice del producto que quieres agregar?=>"))
+    cantidad = int(input("cuantas unidades vas a comprar?=>"))
+    totalProducto = cantidad * productos[productoSeleccionado]["valor"]
+
+    # Create invoice line item
+    nuevoProductoEnFactura = {
+        "nombre": productos[productoSeleccionado]["nombre"],
+        "valor": productos[productoSeleccionado]["valor"],
+        "unidades": cantidad,
+        "totalProducto": totalProducto
+    }
+    factura.append(nuevoProductoEnFactura)
+```
+
+<Note>
+  **Invoice Line Item Structure**: Each item in the invoice contains:
+  - `nombre`: Product name
+  - `valor`: Unit price
+  - `unidades`: Quantity purchased
+  - `totalProducto`: Line total (unit price × quantity)
+</Note>
+
+### Section 5: Display Current Invoice (Option 3)
+
+```python
+elif opcionMenu == "3":
+    valorTotalFactura = 0
+    for producto in factura:
+        valorTotalFactura += producto["totalProducto"]
+
+    print("FACTURA")
+    print("Datos registrados")
+    print("DOC:", documentoCliente)
+    print("NOMBRES:", nombreCliente)
+    print("APELLIDOS:", apellidoCliente)
+    
+    # Calculate totals
+    valorNeto = 0
+    for producto in factura:
+        valorNeto += producto["totalProducto"]
+    impuestoIva = valorNeto * 0.19
+    totalFactura = valorNeto + impuestoIva
+    
+    # Display line items
+    print("productos en factura")
+    for producto in factura:
+        print(f"{producto["nombre"]} {producto["valor"]} * {producto["unidades"]} = {producto["totalProducto"]}")
+```
+
+<Accordion title="Financial Calculations Breakdown">
+  1. **Subtotal (valorNeto)**: Sum of all line item totals
+  2. **IVA (impuestoIva)**: 19% tax on subtotal
+  3. **Total (totalFactura)**: Subtotal + IVA
+  
+  Formula: `Total = Subtotal + (Subtotal × 0.19)`
+</Accordion>
+
+### Section 6: Incomplete Feature (Option 4)
+
+```python
+elif opcionMenu == "4":
+    # Empty - not implemented
+```
+
+<Note>
+  **Missing Implementation**: Option 4 ("Mostrar factura") is declared in the menu but not implemented. This is likely meant to be the final invoice display, possibly with a different format than option 3.
+</Note>
+
+## How to Run
+
+<Steps>
+  <Step title="Save the File">
+    Save the code in a file named `billing_system.py`
+  </Step>
+  
+  <Step title="Run the Program">
+    Execute from your terminal:
+    ```bash
+    python billing_system.py
+    ```
+  </Step>
+  
+  <Step title="Follow the Workflow">
+    1. Register a customer (Option 1)
+    2. Add products to invoice (Option 2, repeat as needed)
+    3. View current invoice (Option 3)
+    4. Exit (Option 5)
+  </Step>
+</Steps>
+
+## Example Session
+
+```
+########
+--MENU--
+########
+
+(1) Registar cliente  
+(2) Registrar un nuevo producto a la factura  
+(3) Listar productos actuales de la factura.   
+(4) Mostrar factura   
+(5) Apagar el programa
+
+INGRESE LA OPCION=>1
+-------------------
+Vamos a registrarte
+ingrese el # documento=>12345678
+ingrese los nombres=>Carlos
+ingrese los apellidos=>Rodriguez
+-------------------
+Datos registrados
+DOC: 12345678
+NOMBRES: Carlos
+APELLIDOS: Rodriguez
+
+INGRESE LA OPCION=>2
+[0] pan 1000
+[1] galleta 800
+[2] arina 1500
+ingrese el indice del producto que quieres agregar?=>0
+cuantas unidades vas a comprar?=>3
+producto agregado a la factura
+
+INGRESE LA OPCION=>2
+[0] pan 1000
+[1] galleta 800
+[2] arina 1500
+ingrese el indice del producto que quieres agregar?=>1
+cuantas unidades vas a comprar?=>5
+producto agregado a la factura
+
+INGRESE LA OPCION=>3
+FACTURA
+Datos registrados
+DOC: 12345678
+NOMBRES: Carlos
+APELLIDOS: Rodriguez
+pan 1000
+galleta 800
+--------------------
+7000
+--------------------
+productos en factura
+--------------------
+pan 1000 * 3 = 3000
+galleta 800 * 5 = 4000
+--------------------
+```
+
+## Enhancement Ideas
+
+<Accordion title="Ways to Improve This Program">
+  1. **Complete Option 4**: Implement a final formatted invoice display
+  2. **Payment Methods**: Add cash, credit, debit payment options
+  3. **Change Calculation**: Calculate change when customer pays with cash
+  4. **Invoice Numbering**: Add sequential invoice numbers
+  5. **Date/Time Stamps**: Record when each invoice was created
+  6. **Product Management**: Add options to create/update/delete products
+  7. **Data Persistence**: Save invoices and customers to files
+  8. **Receipt Printing**: Generate printable receipt format
+  9. **Discount System**: Apply percentage or fixed discounts
+  10. **Multiple Tax Rates**: Support different tax rates for different products
+  11. **Update Quantities**: Modify quantities after adding to invoice
+  12. **Remove Items**: Delete line items from invoice
+  13. **Customer History**: Track all invoices per customer
+</Accordion>
+
+## Common Issues and Solutions
+
+<Accordion title="IndexError when selecting product">
+  **Problem**: User enters an invalid product index.
+  
+  **Solution**: Validate index range:
+  ```python
+  productoSeleccionado = int(input("ingrese el indice del producto que quieres agregar?=>"))
+  if 0 <= productoSeleccionado < len(productos):
+      # proceed with adding product
+  else:
+      print("Indice invalido")
+  ```
+</Accordion>
+
+<Accordion title="Empty invoice display">
+  **Problem**: Trying to view invoice before adding products.
+  
+  **Solution**: Check if invoice is empty:
+  ```python
+  if not factura:
+      print("La factura esta vacia. Agrega productos primero.")
+  else:
+      # display invoice
+  ```
+</Accordion>
+
+<Accordion title="Redundant calculations in Option 3">
+  **Issue**: The code calculates `valorTotalFactura` and `valorNeto` separately but they're the same.
+  
+  **Optimization**: Remove duplicate calculation:
+  ```python
+  subtotal = sum(producto["totalProducto"] for producto in factura)
+  iva = subtotal * 0.19
+  total = subtotal + iva
+  ```
+</Accordion>
+
+## Real-World Applications
+
+<Info>
+  This billing system demonstrates concepts from:
+  - **Point of Sale (POS) Systems**: Retail checkout systems
+  - **Invoice Management**: Professional invoicing software
+  - **E-commerce Checkout**: Online shopping cart completion
+  - **Restaurant Billing**: Order management and bill generation
+</Info>
+
+## Key Concepts Demonstrated
+
+### Immutable Data Structures
+
+```python
+productos = (...)  # Tuple - cannot be modified
+```
+
+Using tuples for the product catalog prevents accidental changes to prices or names.
+
+### State Management
+
+```python
+documentoCliente = ""
+factura = []
+```
+
+Maintaining state across multiple operations is essential for transaction-based systems.
+
+### Accumulator Pattern
+
+```python
+subtotal = 0
+for producto in factura:
+    subtotal += producto["totalProducto"]
+```
+
+The accumulator pattern is fundamental for calculating running totals.
+
+### Confirmation Dialogs
+
+```python
+print("Estas seguro que quieres actualizarlo?")
+respuesta = input("(1) si (2) no =>")
+if respuesta == "1":
+    # proceed with update
+```
+
+Asking for confirmation prevents accidental data loss.
+
+## Key Takeaways
+
+- Tuples provide immutable data structures for constants like product catalogs
+- Empty strings can indicate "not set" state for customer data
+- Invoice line items should store all relevant details including calculated totals
+- Financial calculations must be precise and clearly documented
+- Multi-step workflows (register → add products → view invoice) are common in business applications
+- Confirmation dialogs improve user experience and prevent mistakes
+- Incomplete features (like option 4) should be noted and implemented
+- State management is crucial for maintaining customer and transaction data across operations

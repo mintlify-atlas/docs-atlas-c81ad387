@@ -1,0 +1,459 @@
+---
+title: "Sets"
+description: "Learn Python sets - unordered collections of unique elements. Master set operations, mathematical operations, and when to use sets for optimal performance."
+---
+
+# Sets in Python
+
+Sets are **unordered** collections of **unique** elements. They're mutable (you can add/remove elements) but don't allow duplicates. Sets are perfect for membership testing and mathematical set operations.
+
+<Note>
+Key characteristics: **no duplicates**, **no order**, and **fast membership testing**.
+</Note>
+
+## Creating Sets
+
+### Basic Creation
+
+```python
+# Form 1: With curly braces {}
+numeros = {1, 2, 3, 4, 5}
+frutas = {"manzana", "banana", "cereza"}
+
+# Form 2: With set() constructor
+vocales = set(["a", "e", "i", "o", "u"])
+```
+
+### Empty Set
+
+<Warning>
+Use **set()**, not **{}** to create an empty set - **{}** creates an empty dictionary!
+</Warning>
+
+```python
+vacio = set()  # ✅ Correct - empty set
+# vacio = {}   # ❌ This creates an empty DICTIONARY
+```
+
+### From Strings
+
+```python
+# Create set from string (removes duplicates)
+letras = set("mississippi")
+print(letras)  # {'m', 'i', 's', 'p'} - order not guaranteed
+```
+
+### Automatic Duplicate Removal
+
+```python
+# Duplicates are automatically eliminated
+numeros_duplicados = {1, 2, 2, 3, 3, 3, 4}
+print(numeros_duplicados)  # {1, 2, 3, 4}
+```
+
+## Important Set Characteristics
+
+### 1. No Order (Cannot Access by Index)
+
+```python
+colores = {"rojo", "verde", "azul"}
+# print(colores[0])  # ❌ TypeError: 'set' object is not subscriptable
+```
+
+### 2. Only Unique Elements
+
+```python
+animales = {"perro", "gato", "perro", "loro"}
+print(animales)  # {'perro', 'gato', 'loro'} - only unique elements
+```
+
+### 3. Elements Must Be Immutable
+
+```python
+# ✅ Can contain: numbers, strings, tuples
+valido = {1, "texto", (1, 2)}
+
+# ❌ Cannot contain: lists, dictionaries, other sets
+# invalido = {1, [2, 3]}  # TypeError: unhashable type: 'list'
+```
+
+## Adding Elements
+
+### add() - Add Single Element
+
+```python
+frutas = {"manzana", "banana"}
+
+frutas.add("cereza")
+print(frutas)  # {'manzana', 'banana', 'cereza'}
+
+# Adding duplicate does nothing (no error)
+frutas.add("manzana")
+print(frutas)  # Still the same
+```
+
+### update() - Add Multiple Elements
+
+```python
+frutas.update(["durazno", "pera"])
+# or: frutas.update({"durazno", "pera"})
+print(frutas)
+```
+
+<Tip>
+Use **add()** for single elements and **update()** for multiple elements from any iterable.
+</Tip>
+
+## Removing Elements
+
+<AccordionGroup>
+<Accordion title="remove() - Remove Element (Raises Error if Not Found)">
+```python
+numeros = {1, 2, 3, 4, 5}
+numeros.remove(3)
+print(numeros)  # {1, 2, 4, 5}
+
+# numeros.remove(10)  # ❌ KeyError - element doesn't exist
+```
+Removes element. Raises KeyError if element doesn't exist.
+</Accordion>
+
+<Accordion title="discard() - Remove Element (No Error if Not Found)">
+```python
+numeros = {1, 2, 3, 4, 5}
+numeros.discard(4)
+numeros.discard(100)  # ✅ No error even though 100 doesn't exist
+print(numeros)  # {1, 2, 3, 5}
+```
+Removes element. Does nothing if element doesn't exist (safe).
+</Accordion>
+
+<Accordion title="pop() - Remove Random Element">
+```python
+numeros = {1, 2, 3, 4, 5}
+elemento = numeros.pop()
+print(f"Removed: {elemento}")
+print(numeros)
+```
+Removes and returns an arbitrary element.
+</Accordion>
+
+<Accordion title="clear() - Remove All Elements">
+```python
+numeros.clear()
+print(numeros)  # set()
+```
+Empties the entire set.
+</Accordion>
+</AccordionGroup>
+
+## Checking Membership
+
+```python
+letras = {"a", "b", "c", "d"}
+
+if "a" in letras:
+    print("'a' está en el set")
+
+if "z" not in letras:
+    print("'z' NO está en el set")
+```
+
+<Note>
+Membership testing (`in`) is **O(1)** in sets vs **O(n)** in lists - much faster!
+</Note>
+
+## Set Operations
+
+Sets support mathematical set operations:
+
+### Union - All Elements from Both Sets
+
+```python
+A = {1, 2, 3, 4, 5}
+B = {4, 5, 6, 7, 8}
+
+# Method 1: Using |
+union1 = A | B
+
+# Method 2: Using union()
+union2 = A.union(B)
+
+print(union1)  # {1, 2, 3, 4, 5, 6, 7, 8}
+```
+
+### Intersection - Common Elements
+
+```python
+A = {1, 2, 3, 4, 5}
+B = {4, 5, 6, 7, 8}
+
+# Method 1: Using &
+interseccion1 = A & B
+
+# Method 2: Using intersection()
+interseccion2 = A.intersection(B)
+
+print(interseccion1)  # {4, 5}
+```
+
+### Difference - Elements in A but Not in B
+
+```python
+A = {1, 2, 3, 4, 5}
+B = {4, 5, 6, 7, 8}
+
+# Method 1: Using -
+diferencia1 = A - B
+
+# Method 2: Using difference()
+diferencia2 = A.difference(B)
+
+print(diferencia1)  # {1, 2, 3}
+```
+
+### Symmetric Difference - Elements in A or B, but Not Both
+
+```python
+A = {1, 2, 3, 4, 5}
+B = {4, 5, 6, 7, 8}
+
+# Method 1: Using ^
+dif_simetrica1 = A ^ B
+
+# Method 2: Using symmetric_difference()
+dif_simetrica2 = A.symmetric_difference(B)
+
+print(dif_simetrica1)  # {1, 2, 3, 6, 7, 8}
+```
+
+<AccordionGroup>
+<Accordion title="Visual Guide to Set Operations">
+```
+A = {1, 2, 3, 4, 5}
+B = {4, 5, 6, 7, 8}
+
+Union (A | B):              {1, 2, 3, 4, 5, 6, 7, 8}
+Intersection (A & B):       {4, 5}
+Difference (A - B):         {1, 2, 3}
+Symmetric Diff (A ^ B):     {1, 2, 3, 6, 7, 8}
+```
+</Accordion>
+</AccordionGroup>
+
+## Set Comparison Methods
+
+### Subset and Superset
+
+```python
+set1 = {1, 2, 3}
+set2 = {1, 2, 3, 4, 5}
+set3 = {1, 2, 3}
+
+# issubset() - check if contained in another
+print(set1.issubset(set2))  # True (set1 is contained in set2)
+
+# issuperset() - check if contains another
+print(set2.issuperset(set1))  # True (set2 contains set1)
+```
+
+### Disjoint Sets
+
+```python
+set1 = {1, 2, 3}
+set4 = {6, 7, 8}
+
+# isdisjoint() - check if no common elements
+print(set1.isdisjoint(set4))  # True (no shared elements)
+```
+
+### Direct Comparison
+
+```python
+set1 = {1, 2, 3}
+set3 = {1, 2, 3}
+set2 = {1, 2, 3, 4, 5}
+
+print(set1 == set3)  # True
+print(set1 == set2)  # False
+```
+
+## Iterating Over Sets
+
+<Warning>
+Order is **not guaranteed** and may vary between iterations!
+</Warning>
+
+```python
+colores = {"rojo", "verde", "azul", "amarillo"}
+
+for color in colores:
+    print(color)
+
+# With enumerate (but remember: order not guaranteed)
+for indice, color in enumerate(colores):
+    print(f"{indice}: {color}")
+```
+
+## Useful Set Methods
+
+```python
+numeros = {1, 2, 3, 4, 5}
+
+# Length
+print(len(numeros))  # 5
+
+# Min and max
+print(min(numeros))  # 1
+print(max(numeros))  # 5
+
+# Sum
+print(sum(numeros))  # 15
+
+# sorted() - returns a sorted LIST (not a set)
+ordenados = sorted(numeros)
+print(ordenados)  # [1, 2, 3, 4, 5] - this is a list
+```
+
+## In-Place Operations
+
+These methods modify the original set:
+
+```python
+A = {1, 2, 3}
+B = {3, 4, 5}
+
+# Union in-place
+A |= B  # equivalent to: A = A | B
+print(A)  # {1, 2, 3, 4, 5}
+
+A = {1, 2, 3}
+# Intersection in-place
+A &= B
+print(A)  # {3}
+
+A = {1, 2, 3}
+# Difference in-place
+A -= B
+print(A)  # {1, 2}
+
+A = {1, 2, 3}
+# Symmetric difference in-place
+A ^= B
+print(A)  # {1, 2, 4, 5}
+```
+
+## Practical Use Cases
+
+### 1. Remove Duplicates from List
+
+```python
+lista_con_duplicados = [1, 2, 2, 3, 3, 3, 4, 5, 5]
+sin_duplicados = list(set(lista_con_duplicados))
+print(sin_duplicados)  # [1, 2, 3, 4, 5] - order may vary
+```
+
+### 2. Find Unique Elements
+
+```python
+lista1 = [1, 2, 3, 4, 5]
+lista2 = [4, 5, 6, 7, 8]
+unicos_lista1 = set(lista1) - set(lista2)
+print(unicos_lista1)  # {1, 2, 3}
+```
+
+### 3. Check Common Elements
+
+```python
+lista_a = ["perro", "gato", "loro"]
+lista_b = ["pez", "loro", "hamster"]
+if set(lista_a) & set(lista_b):
+    print("Tienen elementos en común")
+```
+
+### 4. Count Unique Characters
+
+```python
+texto = "mississippi"
+caracteres_unicos = set(texto)
+print(f"Caracteres únicos: {len(caracteres_unicos)}")  # 4
+```
+
+## Frozenset - Immutable Sets
+
+`frozenset` is like a regular set but **cannot be modified**:
+
+```python
+frozen = frozenset([1, 2, 3, 4])
+print(frozen)  # frozenset({1, 2, 3, 4})
+
+# ❌ Cannot modify
+# frozen.add(5)  # AttributeError
+# frozen.remove(1)  # AttributeError
+
+# ✅ Can be used as dictionary key
+diccionario = {frozen: "valor"}
+
+# ✅ Can be element of a set
+set_de_frozensets = {frozenset([1, 2]), frozenset([3, 4])}
+```
+
+<Tip>
+Use **frozenset** when you need an immutable set as a dictionary key or as an element of another set.
+</Tip>
+
+## Set Comprehension
+
+Create sets elegantly with comprehensions:
+
+```python
+# Basic comprehension
+cuadrados = {x**2 for x in range(10)}
+print(cuadrados)  # {0, 1, 4, 9, 16, 25, 36, 49, 64, 81}
+
+# With condition
+pares = {x for x in range(20) if x % 2 == 0}
+print(pares)  # {0, 2, 4, 6, 8, 10, 12, 14, 16, 18}
+```
+
+## When to Use Sets
+
+<AccordionGroup>
+<Accordion title="Perfect For">
+- **Removing duplicates** from collections
+- **Fast membership testing** (checking if element exists)
+- **Mathematical set operations** (union, intersection, etc.)
+- **Tracking unique items**
+</Accordion>
+
+<Accordion title="Not Suitable For">
+- When you need to maintain **order**
+- When you need **indexed access** (like `items[0]`)
+- When elements are **mutable** (lists, dicts)
+- When you need to store **duplicates**
+</Accordion>
+</AccordionGroup>
+
+### Performance Comparison
+
+```python
+# Membership testing
+vocales_set = {"a", "e", "i", "o", "u"}
+vocales_lista = ["a", "e", "i", "o", "u"]
+
+if "a" in vocales_set:  # O(1) - constant time ⚡
+    print("Es vocal")
+
+if "a" in vocales_lista:  # O(n) - linear time 🐌
+    print("Es vocal")
+```
+
+## Key Takeaways
+
+- Sets contain only **unique elements** - duplicates are automatically removed
+- Sets are **unordered** - no indexing or slicing
+- Membership testing is **O(1)** - extremely fast
+- Sets support **mathematical operations** (union, intersection, difference)
+- Elements must be **immutable** (hashable)
+- Use **frozenset** for immutable sets that can be dictionary keys
+- Sets are perfect for **removing duplicates** and **fast lookups**
