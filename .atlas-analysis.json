@@ -1,0 +1,112 @@
+{
+  "projectType": "general",
+  "projectName": "Python Vanilla",
+  "projectDescription": "A comprehensive guide to Python fundamentals from basic concepts to advanced data structures for beginners",
+  "theme": "almond",
+  "primaryColor": "#04649b",
+  "lightColor": "#940404",
+  "darkColor": "#7cb4cc",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Get Started",
+        "groups": [
+          {
+            "group": "Introduction",
+            "pages": [
+              "introduction",
+              "what-is-python",
+              "installation"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Fundamentals",
+        "groups": [
+          {
+            "group": "Basic Concepts",
+            "pages": [
+              "fundamentals/variables",
+              "fundamentals/strings",
+              "fundamentals/numbers",
+              "fundamentals/operators"
+            ]
+          },
+          {
+            "group": "Control Flow",
+            "pages": [
+              "fundamentals/conditionals",
+              "fundamentals/logical-operators"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Data Structures",
+        "groups": [
+          {
+            "group": "Collections",
+            "pages": [
+              "data-structures/lists",
+              "data-structures/tuples",
+              "data-structures/dictionaries",
+              "data-structures/sets"
+            ]
+          },
+          {
+            "group": "Iteration",
+            "pages": [
+              "data-structures/loops",
+              "data-structures/enumerate"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Practical Exercises",
+        "groups": [
+          {
+            "group": "Basic Exercises",
+            "pages": [
+              "exercises/text-analyzer",
+              "exercises/bmi-calculator"
+            ]
+          },
+          {
+            "group": "Intermediate Exercises",
+            "pages": [
+              "exercises/crud-operations",
+              "exercises/shopping-cart",
+              "exercises/veterinary-system"
+            ]
+          },
+          {
+            "group": "Advanced Exercises",
+            "pages": [
+              "exercises/billing-system"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Step-by-step Python fundamentals from variables to advanced data structures",
+    "Comprehensive coverage of strings, numbers, operators, and conditionals",
+    "In-depth exploration of Python data structures: lists, tuples, dictionaries, and sets",
+    "Real-world practical exercises including CRUD operations, shopping cart, and billing systems",
+    "Console-based interactive examples for hands-on learning"
+  ],
+  "publicApiSurface": [
+    "Variables and data types (int, float, string, bool)",
+    "String manipulation methods (upper, lower, split, count, etc.)",
+    "List operations (append, extend, insert, remove, pop, sort)",
+    "Dictionary methods (keys, values, items, get, pop, update)",
+    "Tuple operations (count, index, immutability)",
+    "Set operations (add, remove, union, intersection)",
+    "Control flow (if/elif/else, logical operators)",
+    "Loops (for, while, enumerate)",
+    "Practical applications (text analysis, BMI calculator, CRUD, shopping cart, billing)"
+  ]
+}
